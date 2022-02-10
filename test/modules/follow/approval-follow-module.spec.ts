@@ -33,7 +33,7 @@ makeSuiteCleanRoom('Approval Follow Module', function () {
       })
     ).to.not.be.reverted;
     await expect(
-      lensHub.connect(governance).whitelistFollowModule(approvalFollowModule.address, true)
+      lensHub.connect(governance).allowlistFollowModule(approvalFollowModule.address, true)
     ).to.not.be.reverted;
   });
 

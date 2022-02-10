@@ -40,11 +40,11 @@ makeSuiteCleanRoom('Mock Profile Creation Proxy', function () {
       lensHub.address
     );
     await expect(
-      lensHub.connect(governance).whitelistProfileCreator(mockProfileCreationProxy.address, true)
+      lensHub.connect(governance).allowlistProfileCreator(mockProfileCreationProxy.address, true)
     ).to.not.be.reverted;
   });
 
-  it('User should be able to create a profile using the whitelisted proxy, received NFT should be valid', async function () {
+  it('User should be able to create a profile using the allowlisted proxy, received NFT should be valid', async function () {
     let timestamp: any;
     let owner: string;
     let totalSupply: BigNumber;

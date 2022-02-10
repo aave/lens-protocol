@@ -40,15 +40,15 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
         ).to.be.revertedWith(ERRORS.NOT_PROFILE_OWNER);
       });
 
-      it('User should fail to set a follow module that is not whitelisted', async function () {
+      it('User should fail to set a follow module that is not allowlisted', async function () {
         await expect(lensHub.setFollowModule(FIRST_PROFILE_ID, userAddress, [])).to.be.revertedWith(
-          ERRORS.FOLLOW_MODULE_NOT_WHITELISTED
+          ERRORS.FOLLOW_MODULE_NOT_ALLOWLISTED
         );
       });
 
       it('User should fail to set a follow module with invalid follow module data format', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -58,9 +58,9 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
     });
 
     context('Scenarios', function () {
-      it('User should set a whitelisted follow module, fetching the profile follow module should return the correct address, user then sets it to the zero address and fetching returns the zero address', async function () {
+      it('User should set a allowlisted follow module, fetching the profile follow module should return the correct address, user then sets it to the zero address and fetching returns the zero address', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -93,7 +93,7 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
     context('Negatives', function () {
       it('TestWallet should fail to set a follow module with sig with signature deadline mismatch', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -124,7 +124,7 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
 
       it('TestWallet should fail to set a follow module with sig with invalid deadline', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -155,7 +155,7 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
 
       it('TestWallet should fail to set a follow module with sig with invalid nonce', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -184,7 +184,7 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
         ).to.be.revertedWith(ERRORS.SIGNATURE_INVALID);
       });
 
-      it('TestWallet should fail to set a follow module with sig with an unwhitelisted follow module', async function () {
+      it('TestWallet should fail to set a follow module with sig with an unallowlisted follow module', async function () {
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
         const followModuleData = [];
 
@@ -208,12 +208,12 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
               deadline: MAX_UINT256,
             },
           })
-        ).to.be.revertedWith(ERRORS.FOLLOW_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.FOLLOW_MODULE_NOT_ALLOWLISTED);
       });
 
       it('TestWallet should sign attempt to set follow module with sig, then cancel with empty permitForAll, then fail to set follow module with sig', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -245,9 +245,9 @@ makeSuiteCleanRoom('Setting Follow Module', function () {
     });
 
     context('Scenarios', function () {
-      it('TestWallet should set a whitelisted follow module with sig, fetching the profile follow module should return the correct address', async function () {
+      it('TestWallet should set a allowlisted follow module with sig, fetching the profile follow module should return the correct address', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();

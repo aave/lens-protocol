@@ -19,7 +19,7 @@ import {IModuleGlobals} from '../../interfaces/IModuleGlobals.sol';
 contract ModuleGlobals is IModuleGlobals {
     uint16 internal constant BPS_MAX = 10000;
 
-    mapping(address => bool) internal _currencyWhitelisted;
+    mapping(address => bool) internal _currencyAllowlisted;
     address internal _governance;
     address internal _treasury;
     uint16 internal _treasuryFee;
@@ -62,13 +62,13 @@ contract ModuleGlobals is IModuleGlobals {
     }
 
     /// @inheritdoc IModuleGlobals
-    function whitelistCurrency(address currency, bool toWhitelist) external override onlyGov {
-        _whitelistCurrency(currency, toWhitelist);
+    function allowlistCurrency(address currency, bool toAllowlist) external override onlyGov {
+        _allowlistCurrency(currency, toAllowlist);
     }
 
     /// @inheritdoc IModuleGlobals
-    function isCurrencyWhitelisted(address currency) external view override returns (bool) {
-        return _currencyWhitelisted[currency];
+    function isCurrencyAllowlisted(address currency) external view override returns (bool) {
+        return _currencyAllowlisted[currency];
     }
 
     /// @inheritdoc IModuleGlobals
@@ -112,14 +112,14 @@ contract ModuleGlobals is IModuleGlobals {
         emit Events.ModuleGlobalsTreasuryFeeSet(prevTreasuryFee, newTreasuryFee, block.timestamp);
     }
 
-    function _whitelistCurrency(address currency, bool toWhitelist) internal {
+    function _allowlistCurrency(address currency, bool toAllowlist) internal {
         if (currency == address(0)) revert Errors.InitParamsInvalid();
-        bool prevWhitelisted = _currencyWhitelisted[currency];
-        _currencyWhitelisted[currency] = toWhitelist;
-        emit Events.ModuleGlobalsCurrencyWhitelisted(
+        bool prevAllowlisted = _currencyAllowlisted[currency];
+        _currencyAllowlisted[currency] = toAllowlist;
+        emit Events.ModuleGlobalsCurrencyAllowlisted(
             currency,
-            prevWhitelisted,
-            toWhitelist,
+            prevAllowlisted,
+            toAllowlist,
             block.timestamp
         );
     }

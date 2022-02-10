@@ -32,25 +32,25 @@ interface IModuleGlobals {
     function setTreasuryFee(uint16 newTreasuryFee) external;
 
     /**
-     * @notice Adds or removes a currency from the whitelist. This function can only be called by governance.
+     * @notice Adds or removes a currency from the allowlist. This function can only be called by governance.
      *
-     * @param currency The currency to add or remove from the whitelist.
-     * @param toWhitelist Whether to add or remove the currency from the whitelist.
+     * @param currency The currency to add or remove from the allowlist.
+     * @param toAllowlist Whether to add or remove the currency from the allowlist.
      */
-    function whitelistCurrency(address currency, bool toWhitelist) external;
+    function allowlistCurrency(address currency, bool toAllowlist) external;
 
     /// ************************
     /// *****VIEW FUNCTIONS*****
     /// ************************
 
     /**
-     * @notice Returns whether a currency is whitelisted.
+     * @notice Returns whether a currency is allowlisted.
      *
-     * @param currency The currency to query the whitelist for.
+     * @param currency The currency to query the allowlist for.
      *
-     * @return Whether the queried currency is whitelisted.
+     * @return Whether the queried currency is allowlisted.
      */
-    function isCurrencyWhitelisted(address currency) external view returns (bool);
+    function isCurrencyAllowlisted(address currency) external view returns (bool);
 
     /**
      * @notice Returns the governance address.

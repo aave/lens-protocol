@@ -31,16 +31,16 @@ makeSuiteCleanRoom('Fee Follow Module', function () {
 
   beforeEach(async function () {
     await expect(
-      lensHub.connect(governance).whitelistFollowModule(feeFollowModule.address, true)
+      lensHub.connect(governance).allowlistFollowModule(feeFollowModule.address, true)
     ).to.not.be.reverted;
     await expect(
-      moduleGlobals.connect(governance).whitelistCurrency(currency.address, true)
+      moduleGlobals.connect(governance).allowlistCurrency(currency.address, true)
     ).to.not.be.reverted;
   });
 
   context('Negatives', function () {
     context('Initialization', function () {
-      it('user should fail to create a profile with fee follow module using unwhitelisted currency', async function () {
+      it('user should fail to create a profile with fee follow module using unallowlisted currency', async function () {
         const followModuleData = abiCoder.encode(
           ['uint256', 'address', 'address'],
           [DEFAULT_FOLLOW_PRICE, userTwoAddress, userAddress]

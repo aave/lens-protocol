@@ -43,10 +43,10 @@ makeSuiteCleanRoom('Limited Fee Collect Module', function () {
       })
     ).to.not.be.reverted;
     await expect(
-      lensHub.connect(governance).whitelistCollectModule(limitedFeeCollectModule.address, true)
+      lensHub.connect(governance).allowlistCollectModule(limitedFeeCollectModule.address, true)
     ).to.not.be.reverted;
     await expect(
-      moduleGlobals.connect(governance).whitelistCurrency(currency.address, true)
+      moduleGlobals.connect(governance).allowlistCurrency(currency.address, true)
     ).to.not.be.reverted;
   });
 
@@ -69,7 +69,7 @@ makeSuiteCleanRoom('Limited Fee Collect Module', function () {
         ).to.be.revertedWith(ERRORS.INIT_PARAMS_INVALID);
       });
 
-      it('user should fail to post with limited fee collect module using unwhitelisted currency', async function () {
+      it('user should fail to post with limited fee collect module using unallowlisted currency', async function () {
         const collectModuleData = abiCoder.encode(
           ['uint256', 'uint256', 'address', 'address', 'uint16'],
           [

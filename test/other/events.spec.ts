@@ -176,46 +176,46 @@ makeSuiteCleanRoom('Events', function () {
       ]);
     });
 
-    it('Follow module whitelisting functions should emit expected event', async function () {
+    it('Follow module allowlisting functions should emit expected event', async function () {
       receipt = await waitForTx(
-        lensHub.connect(governance).whitelistFollowModule(userAddress, true)
+        lensHub.connect(governance).allowlistFollowModule(userAddress, true)
       );
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'FollowModuleWhitelisted', [userAddress, true, await getTimestamp()]);
+      matchEvent(receipt, 'FollowModuleAllowlisted', [userAddress, true, await getTimestamp()]);
 
       receipt = await waitForTx(
-        lensHub.connect(governance).whitelistFollowModule(userAddress, false)
+        lensHub.connect(governance).allowlistFollowModule(userAddress, false)
       );
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'FollowModuleWhitelisted', [userAddress, false, await getTimestamp()]);
+      matchEvent(receipt, 'FollowModuleAllowlisted', [userAddress, false, await getTimestamp()]);
     });
 
-    it('Reference module whitelisting functions should emit expected event', async function () {
+    it('Reference module allowlisting functions should emit expected event', async function () {
       receipt = await waitForTx(
-        lensHub.connect(governance).whitelistReferenceModule(userAddress, true)
+        lensHub.connect(governance).allowlistReferenceModule(userAddress, true)
       );
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'ReferenceModuleWhitelisted', [userAddress, true, await getTimestamp()]);
+      matchEvent(receipt, 'ReferenceModuleAllowlisted', [userAddress, true, await getTimestamp()]);
 
       receipt = await waitForTx(
-        lensHub.connect(governance).whitelistReferenceModule(userAddress, false)
+        lensHub.connect(governance).allowlistReferenceModule(userAddress, false)
       );
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'ReferenceModuleWhitelisted', [userAddress, false, await getTimestamp()]);
+      matchEvent(receipt, 'ReferenceModuleAllowlisted', [userAddress, false, await getTimestamp()]);
     });
 
-    it('Collect module whitelisting functions should emit expected event', async function () {
+    it('Collect module allowlisting functions should emit expected event', async function () {
       receipt = await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(userAddress, true)
+        lensHub.connect(governance).allowlistCollectModule(userAddress, true)
       );
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'CollectModuleWhitelisted', [userAddress, true, await getTimestamp()]);
+      matchEvent(receipt, 'CollectModuleAllowlisted', [userAddress, true, await getTimestamp()]);
 
       receipt = await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(userAddress, false)
+        lensHub.connect(governance).allowlistCollectModule(userAddress, false)
       );
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'CollectModuleWhitelisted', [userAddress, false, await getTimestamp()]);
+      matchEvent(receipt, 'CollectModuleAllowlisted', [userAddress, false, await getTimestamp()]);
     });
   });
 
@@ -296,7 +296,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistFollowModule(approvalFollowModule.address, true)
+        lensHub.connect(governance).allowlistFollowModule(approvalFollowModule.address, true)
       );
 
       receipt = await waitForTx(
@@ -325,7 +325,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       );
 
       receipt = await waitForTx(
@@ -356,7 +356,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       );
       await waitForTx(
         lensHub.post({
@@ -402,7 +402,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       );
       await waitForTx(
         lensHub.post({
@@ -442,7 +442,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       );
 
       receipt = await waitForTx(lensHub.connect(userTwo).follow([FIRST_PROFILE_ID], [[]]));
@@ -468,7 +468,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       );
 
       await waitForTx(
@@ -522,7 +522,7 @@ makeSuiteCleanRoom('Events', function () {
       await createProfile();
 
       await waitForTx(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       );
 
       await waitForTx(
@@ -627,13 +627,13 @@ makeSuiteCleanRoom('Events', function () {
       ]);
     });
 
-    it('Currency whitelisting should emit expected event', async function () {
+    it('Currency allowlisting should emit expected event', async function () {
       receipt = await waitForTx(
-        moduleGlobals.connect(governance).whitelistCurrency(userAddress, true)
+        moduleGlobals.connect(governance).allowlistCurrency(userAddress, true)
       );
 
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'ModuleGlobalsCurrencyWhitelisted', [
+      matchEvent(receipt, 'ModuleGlobalsCurrencyAllowlisted', [
         userAddress,
         false,
         true,
@@ -641,11 +641,11 @@ makeSuiteCleanRoom('Events', function () {
       ]);
 
       receipt = await waitForTx(
-        moduleGlobals.connect(governance).whitelistCurrency(userAddress, false)
+        moduleGlobals.connect(governance).allowlistCurrency(userAddress, false)
       );
 
       expect(receipt.logs.length).to.eq(1);
-      matchEvent(receipt, 'ModuleGlobalsCurrencyWhitelisted', [
+      matchEvent(receipt, 'ModuleGlobalsCurrencyAllowlisted', [
         userAddress,
         true,
         false,

@@ -13,11 +13,11 @@ library Errors {
     error TokenDoesNotExist();
     error NotGovernance();
     error NotGovernanceOrEmergencyAdmin();
-    error CallerNotWhitelistedModule();
-    error CollectModuleNotWhitelisted();
-    error FollowModuleNotWhitelisted();
-    error ReferenceModuleNotWhitelisted();
-    error ProfileCreatorNotWhitelisted();
+    error CallerNotAllowlistedModule();
+    error CollectModuleNotAllowlisted();
+    error FollowModuleNotAllowlisted();
+    error ReferenceModuleNotAllowlisted();
+    error ProfileCreatorNotAllowlisted();
     error NotProfileOwner();
     error NotProfileOwnerOrDispatcher();
     error PublicationDoesNotExist();

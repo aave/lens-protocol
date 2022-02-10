@@ -459,7 +459,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         await expect(lensHub.connect(governance).setState(ProtocolState.Paused)).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -504,7 +504,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         await expect(lensHub.connect(governance).setState(ProtocolState.Paused)).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -574,7 +574,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -634,7 +634,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -723,7 +723,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -777,7 +777,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -958,7 +958,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -998,7 +998,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1277,7 +1277,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1324,7 +1324,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -1394,7 +1394,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1456,7 +1456,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1547,7 +1547,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1603,7 +1603,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1762,7 +1762,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -1798,7 +1798,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(

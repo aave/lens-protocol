@@ -62,54 +62,54 @@ library Events {
     );
 
     /**
-     * @dev Emitted when a profile creator is added to or removed from the whitelist.
+     * @dev Emitted when a profile creator is added to or removed from the allowlist.
      *
      * @param profileCreator The address of the profile creator.
-     * @param whitelisted Whether or not the profile creator is being added to the whitelist.
+     * @param allowlisted Whether or not the profile creator is being added to the allowlist.
      * @param timestamp The current block timestamp.
      */
-    event ProfileCreatorWhitelisted(
+    event ProfileCreatorAllowlisted(
         address indexed profileCreator,
-        bool indexed whitelisted,
+        bool indexed allowlisted,
         uint256 timestamp
     );
 
     /**
-     * @dev Emitted when a follow module is added to or removed from the whitelist.
+     * @dev Emitted when a follow module is added to or removed from the allowlist.
      *
      * @param followModule The address of the follow module.
-     * @param whitelisted Whether or not the follow module is being added to the whitelist.
+     * @param allowlisted Whether or not the follow module is being added to the allowlist.
      * @param timestamp The current block timestamp.
      */
-    event FollowModuleWhitelisted(
+    event FollowModuleAllowlisted(
         address indexed followModule,
-        bool indexed whitelisted,
+        bool indexed allowlisted,
         uint256 timestamp
     );
 
     /**
-     * @dev Emitted when a reference module is added to or removed from the whitelist.
+     * @dev Emitted when a reference module is added to or removed from the allowlist.
      *
      * @param referenceModule The address of the reference module.
-     * @param whitelisted Whether or not the reference module is being added to the whitelist.
+     * @param allowlisted Whether or not the reference module is being added to the allowlist.
      * @param timestamp The current block timestamp.
      */
-    event ReferenceModuleWhitelisted(
+    event ReferenceModuleAllowlisted(
         address indexed referenceModule,
-        bool indexed whitelisted,
+        bool indexed allowlisted,
         uint256 timestamp
     );
 
     /**
-     * @dev Emitted when a collect module is added to or removed from the whitelist.
+     * @dev Emitted when a collect module is added to or removed from the allowlist.
      *
      * @param collectModule The address of the collect module.
-     * @param whitelisted Whether or not the collect module is being added to the whitelist.
+     * @param allowlisted Whether or not the collect module is being added to the allowlist.
      * @param timestamp The current block timestamp.
      */
-    event CollectModuleWhitelisted(
+    event CollectModuleAllowlisted(
         address indexed collectModule,
-        bool indexed whitelisted,
+        bool indexed allowlisted,
         uint256 timestamp
     );
 
@@ -418,17 +418,17 @@ library Events {
     );
 
     /**
-     * @notice Emitted when a currency is added to or removed from the ModuleGlobals whitelist.
+     * @notice Emitted when a currency is added to or removed from the ModuleGlobals allowlist.
      *
      * @param currency The currency address.
-     * @param prevWhitelisted Whether or not the currency was previously whitelisted.
-     * @param whitelisted Whether or not the currency is whitelisted.
+     * @param prevAllowlisted Whether or not the currency was previously allowlisted.
+     * @param allowlisted Whether or not the currency is allowlisted.
      * @param timestamp The current block timestamp.
      */
-    event ModuleGlobalsCurrencyWhitelisted(
+    event ModuleGlobalsCurrencyAllowlisted(
         address indexed currency,
-        bool indexed prevWhitelisted,
-        bool indexed whitelisted,
+        bool indexed prevAllowlisted,
+        bool indexed allowlisted,
         uint256 timestamp
     );
 

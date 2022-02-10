@@ -57,7 +57,7 @@ contract TimedFeeCollectModule is ICollectModule, FeeModuleBase, FollowValidatio
      *
      * @param data The arbitrary data parameter, decoded into:
      *      uint256 amount: The currency total amount to levy.
-     *      address currency: The currency address, must be internally whitelisted.
+     *      address currency: The currency address, must be internally allowlisted.
      *      address recipient: The custom recipient address to direct earnings to.
      *      uint16 referralFee: The referral fee to set.
      *
@@ -75,7 +75,7 @@ contract TimedFeeCollectModule is ICollectModule, FeeModuleBase, FollowValidatio
             (uint256, address, address, uint16)
         );
         if (
-            !_currencyWhitelisted(currency) ||
+            !_currencyAllowlisted(currency) ||
             recipient == address(0) ||
             referralFee > BPS_MAX ||
             amount < BPS_MAX

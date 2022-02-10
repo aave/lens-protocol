@@ -36,10 +36,10 @@ makeSuiteCleanRoom('Follower Only Reference Module', function () {
     await expect(
       lensHub
         .connect(governance)
-        .whitelistReferenceModule(followerOnlyReferenceModule.address, true)
+        .allowlistReferenceModule(followerOnlyReferenceModule.address, true)
     ).to.not.be.reverted;
     await expect(
-      lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+      lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
     ).to.not.be.reverted;
     await expect(
       lensHub.post({

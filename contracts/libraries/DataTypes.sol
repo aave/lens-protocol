@@ -114,7 +114,7 @@ library DataTypes {
      * the same as the regular `setFollowModule()` function, with an added EIP712Signature.
      *
      * @param profileId The token ID of the profile to change the followModule for.
-     * @param followModule The followModule to set for the given profile, must be whitelisted.
+     * @param followModule The followModule to set for the given profile, must be allowlisted.
      * @param followModuleData The data to be passed to the followModule for initialization.
      * @param sig The EIP712Signature struct containing the profile owner's signature.
      */
@@ -174,7 +174,7 @@ library DataTypes {
      * @param contentURI The URI to set for this new publication.
      * @param collectModule The collect module to set for this new publication.
      * @param collectModuleData The data to pass to the collect module's initialization.
-     * @param referenceModule The reference module to set for the given publication, must be whitelisted.
+     * @param referenceModule The reference module to set for the given publication, must be allowlisted.
      * @param referenceModuleData The data to be passed to the reference module for initialization.
      */
     struct PostData {
@@ -194,7 +194,7 @@ library DataTypes {
      * @param contentURI The URI to set for this new publication.
      * @param collectModule The collectModule to set for this new publication.
      * @param collectModuleData The data to pass to the collectModule's initialization.
-     * @param referenceModule The reference module to set for the given publication, must be whitelisted.
+     * @param referenceModule The reference module to set for the given publication, must be allowlisted.
      * @param referenceModuleData The data to be passed to the reference module for initialization.
      * @param sig The EIP712Signature struct containing the profile owner's signature.
      */
@@ -217,7 +217,7 @@ library DataTypes {
      * @param pubIdPointed The publication ID to point the comment to.
      * @param collectModule The collect module to set for this new publication.
      * @param collectModuleData The data to pass to the collect module's initialization.
-     * @param referenceModule The reference module to set for the given publication, must be whitelisted.
+     * @param referenceModule The reference module to set for the given publication, must be allowlisted.
      * @param referenceModuleData The data to be passed to the reference module for initialization.
      */
     struct CommentData {
@@ -241,7 +241,7 @@ library DataTypes {
      * @param pubIdPointed The publication ID to point the comment to.
      * @param collectModule The collectModule to set for this new publication.
      * @param collectModuleData The data to pass to the collectModule's initialization.
-     * @param referenceModule The reference module to set for the given publication, must be whitelisted.
+     * @param referenceModule The reference module to set for the given publication, must be allowlisted.
      * @param referenceModuleData The data to be passed to the reference module for initialization.
      * @param sig The EIP712Signature struct containing the profile owner's signature.
      */
@@ -263,7 +263,7 @@ library DataTypes {
      * @param profileId The token ID of the profile to publish to.
      * @param profileIdPointed The profile token ID to point the mirror to.
      * @param pubIdPointed The publication ID to point the mirror to.
-     * @param referenceModule The reference module to set for the given publication, must be whitelisted.
+     * @param referenceModule The reference module to set for the given publication, must be allowlisted.
      * @param referenceModuleData The data to be passed to the reference module for initialization.
      */
     struct MirrorData {
@@ -281,7 +281,7 @@ library DataTypes {
      * @param profileId The token ID of the profile to publish to.
      * @param profileIdPointed The profile token ID to point the mirror to.
      * @param pubIdPointed The publication ID to point the mirror to.
-     * @param referenceModule The reference module to set for the given publication, must be whitelisted.
+     * @param referenceModule The reference module to set for the given publication, must be allowlisted.
      * @param referenceModuleData The data to be passed to the reference module for initialization.
      * @param sig The EIP712Signature struct containing the profile owner's signature.
      */

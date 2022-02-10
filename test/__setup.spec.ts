@@ -222,13 +222,13 @@ before(async function () {
 
   await expect(lensHub.connect(governance).setState(ProtocolState.Unpaused)).to.not.be.reverted;
   await expect(
-    lensHub.connect(governance).whitelistProfileCreator(userAddress, true)
+    lensHub.connect(governance).allowlistProfileCreator(userAddress, true)
   ).to.not.be.reverted;
   await expect(
-    lensHub.connect(governance).whitelistProfileCreator(userTwoAddress, true)
+    lensHub.connect(governance).allowlistProfileCreator(userTwoAddress, true)
   ).to.not.be.reverted;
   await expect(
-    lensHub.connect(governance).whitelistProfileCreator(testWallet.address, true)
+    lensHub.connect(governance).allowlistProfileCreator(testWallet.address, true)
   ).to.not.be.reverted;
 
   expect(lensHub).to.not.be.undefined;

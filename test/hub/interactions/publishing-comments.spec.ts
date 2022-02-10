@@ -37,15 +37,15 @@ makeSuiteCleanRoom('Publishing Comments', function () {
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistCollectModule(timedFeeCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(timedFeeCollectModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistReferenceModule(mockReferenceModule.address, true)
+        lensHub.connect(governance).allowlistReferenceModule(mockReferenceModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
@@ -76,7 +76,7 @@ makeSuiteCleanRoom('Publishing Comments', function () {
         ).to.be.revertedWith(ERRORS.NOT_PROFILE_OWNER_OR_DISPATCHER);
       });
 
-      it('User should fail to comment with an unwhitelisted collect module', async function () {
+      it('User should fail to comment with an unallowlisted collect module', async function () {
         await expect(
           lensHub.comment({
             profileId: FIRST_PROFILE_ID,
@@ -88,10 +88,10 @@ makeSuiteCleanRoom('Publishing Comments', function () {
             referenceModule: ZERO_ADDRESS,
             referenceModuleData: [],
           })
-        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_ALLOWLISTED);
       });
 
-      it('User should fail to comment with an unwhitelisted reference module', async function () {
+      it('User should fail to comment with an unallowlisted reference module', async function () {
         await expect(
           lensHub.comment({
             profileId: FIRST_PROFILE_ID,
@@ -103,7 +103,7 @@ makeSuiteCleanRoom('Publishing Comments', function () {
             referenceModule: userAddress,
             referenceModuleData: [],
           })
-        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_ALLOWLISTED);
       });
 
       it('User should fail to comment with invalid collect module data format', async function () {
@@ -219,7 +219,7 @@ makeSuiteCleanRoom('Publishing Comments', function () {
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
@@ -349,7 +349,7 @@ makeSuiteCleanRoom('Publishing Comments', function () {
         ).to.be.revertedWith(ERRORS.SIGNATURE_INVALID);
       });
 
-      it('Testwallet should fail to comment with sig with unwhitelisted collect module', async function () {
+      it('Testwallet should fail to comment with sig with unallowlisted collect module', async function () {
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
         const collectModuleData = [];
         const referenceModuleData = [];
@@ -384,12 +384,12 @@ makeSuiteCleanRoom('Publishing Comments', function () {
               deadline: MAX_UINT256,
             },
           })
-        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_ALLOWLISTED);
       });
 
-      it('TestWallet should fail to comment with sig with unwhitelisted reference module', async function () {
+      it('TestWallet should fail to comment with sig with unallowlisted reference module', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -426,12 +426,12 @@ makeSuiteCleanRoom('Publishing Comments', function () {
               deadline: MAX_UINT256,
             },
           })
-        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_ALLOWLISTED);
       });
 
       it('TestWallet should fail to comment with sig on a publication that does not exist', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -473,7 +473,7 @@ makeSuiteCleanRoom('Publishing Comments', function () {
 
       it('TestWallet should sign attempt to comment with sig, cancel via empty permitForAll, then fail to comment with sig', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -519,7 +519,7 @@ makeSuiteCleanRoom('Publishing Comments', function () {
     context('Scenarios', function () {
       it('TestWallet should comment with sig, fetched comment data should be accurate', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();

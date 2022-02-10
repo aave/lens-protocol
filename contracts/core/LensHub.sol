@@ -41,10 +41,10 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
     }
 
     /**
-     * @dev This modifier reverts if the caller is not a whitelisted profile creator address.
+     * @dev This modifier reverts if the caller is not a allowlisted profile creator address.
      */
-    modifier onlyWhitelistedProfileCreator() {
-        _validateCallerIsWhitelistedProfileCreator();
+    modifier onlyAllowlistedProfileCreator() {
+        _validateCallerIsAllowlistedProfileCreator();
         _;
     }
 
@@ -99,39 +99,39 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
     }
 
     ///@inheritdoc ILensHub
-    function whitelistProfileCreator(address profileCreator, bool whitelist)
+    function allowlistProfileCreator(address profileCreator, bool allowlist)
         external
         override
         onlyGov
     {
-        _profileCreatorWhitelisted[profileCreator] = whitelist;
-        emit Events.ProfileCreatorWhitelisted(profileCreator, whitelist, block.timestamp);
+        _profileCreatorAllowlisted[profileCreator] = allowlist;
+        emit Events.ProfileCreatorAllowlisted(profileCreator, allowlist, block.timestamp);
     }
 
     /// @inheritdoc ILensHub
-    function whitelistFollowModule(address followModule, bool whitelist) external override onlyGov {
-        _followModuleWhitelisted[followModule] = whitelist;
-        emit Events.FollowModuleWhitelisted(followModule, whitelist, block.timestamp);
+    function allowlistFollowModule(address followModule, bool allowlist) external override onlyGov {
+        _followModuleAllowlisted[followModule] = allowlist;
+        emit Events.FollowModuleAllowlisted(followModule, allowlist, block.timestamp);
     }
 
     /// @inheritdoc ILensHub
-    function whitelistReferenceModule(address referenceModule, bool whitelist)
+    function allowlistReferenceModule(address referenceModule, bool allowlist)
         external
         override
         onlyGov
     {
-        _referenceModuleWhitelisted[referenceModule] = whitelist;
-        emit Events.ReferenceModuleWhitelisted(referenceModule, whitelist, block.timestamp);
+        _referenceModuleAllowlisted[referenceModule] = allowlist;
+        emit Events.ReferenceModuleAllowlisted(referenceModule, allowlist, block.timestamp);
     }
 
     /// @inheritdoc ILensHub
-    function whitelistCollectModule(address collectModule, bool whitelist)
+    function allowlistCollectModule(address collectModule, bool allowlist)
         external
         override
         onlyGov
     {
-        _collectModuleWhitelisted[collectModule] = whitelist;
-        emit Events.CollectModuleWhitelisted(collectModule, whitelist, block.timestamp);
+        _collectModuleAllowlisted[collectModule] = allowlist;
+        emit Events.CollectModuleAllowlisted(collectModule, allowlist, block.timestamp);
     }
 
     /// *********************************
@@ -143,7 +143,7 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
         external
         override
         whenNotPaused
-        onlyWhitelistedProfileCreator
+        onlyAllowlistedProfileCreator
     {
         uint256 profileId = ++_profileCounter;
         _mint(vars.to, profileId);
@@ -152,7 +152,7 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
             profileId,
             _profileIdByHandleHash,
             _profileById,
-            _followModuleWhitelisted
+            _followModuleAllowlisted
         );
     }
 
@@ -168,7 +168,7 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
             followModule,
             followModuleData,
             _profileById[profileId],
-            _followModuleWhitelisted
+            _followModuleAllowlisted
         );
     }
 
@@ -205,7 +205,7 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
             vars.followModule,
             vars.followModuleData,
             _profileById[vars.profileId],
-            _followModuleWhitelisted
+            _followModuleAllowlisted
         );
     }
 
@@ -664,38 +664,38 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
     /// *********************************
 
     /// @inheritdoc ILensHub
-    function isProfileCreatorWhitelisted(address profileCreator)
+    function isProfileCreatorAllowlisted(address profileCreator)
         external
         view
         override
         returns (bool)
     {
-        return _profileCreatorWhitelisted[profileCreator];
+        return _profileCreatorAllowlisted[profileCreator];
     }
 
     /// @inheritdoc ILensHub
-    function isFollowModuleWhitelisted(address followModule) external view override returns (bool) {
-        return _followModuleWhitelisted[followModule];
+    function isFollowModuleAllowlisted(address followModule) external view override returns (bool) {
+        return _followModuleAllowlisted[followModule];
     }
 
     /// @inheritdoc ILensHub
-    function isReferenceModuleWhitelisted(address referenceModule)
+    function isReferenceModuleAllowlisted(address referenceModule)
         external
         view
         override
         returns (bool)
     {
-        return _referenceModuleWhitelisted[referenceModule];
+        return _referenceModuleAllowlisted[referenceModule];
     }
 
     /// @inheritdoc ILensHub
-    function isCollectModuleWhitelisted(address collectModule)
+    function isCollectModuleAllowlisted(address collectModule)
         external
         view
         override
         returns (bool)
     {
-        return _collectModuleWhitelisted[collectModule];
+        return _collectModuleAllowlisted[collectModule];
     }
 
     /// @inheritdoc ILensHub
@@ -870,8 +870,8 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
             referenceModuleData,
             ++_profileById[profileId].pubCount,
             _pubByIdByProfile,
-            _collectModuleWhitelisted,
-            _referenceModuleWhitelisted
+            _collectModuleAllowlisted,
+            _referenceModuleAllowlisted
         );
     }
 
@@ -881,8 +881,8 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
             _profileById[vars.profileId].pubCount + 1,
             _profileById,
             _pubByIdByProfile,
-            _collectModuleWhitelisted,
-            _referenceModuleWhitelisted
+            _collectModuleAllowlisted,
+            _referenceModuleAllowlisted
         );
         _profileById[vars.profileId].pubCount++;
     }
@@ -902,7 +902,7 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
             referenceModuleData,
             ++_profileById[profileId].pubCount,
             _pubByIdByProfile,
-            _referenceModuleWhitelisted
+            _referenceModuleAllowlisted
         );
     }
 
@@ -950,8 +950,8 @@ contract LensHub is ILensHub, LensNFTBase, VersionedInitializable, LensMultiStat
         if (msg.sender != _governance) revert Errors.NotGovernance();
     }
 
-    function _validateCallerIsWhitelistedProfileCreator() internal view {
-        if (!_profileCreatorWhitelisted[msg.sender]) revert Errors.ProfileCreatorNotWhitelisted();
+    function _validateCallerIsAllowlistedProfileCreator() internal view {
+        if (!_profileCreatorAllowlisted[msg.sender]) revert Errors.ProfileCreatorNotAllowlisted();
     }
 
     function getRevision() internal pure virtual override returns (uint256) {

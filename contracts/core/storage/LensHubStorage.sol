@@ -56,10 +56,10 @@ contract LensHubStorage {
     // 'CollectWithSig(uint256 profileId,uint256 pubId,bytes data,uint256 nonce,uint256 deadline)'
     // );
 
-    mapping(address => bool) internal _profileCreatorWhitelisted;
-    mapping(address => bool) internal _followModuleWhitelisted;
-    mapping(address => bool) internal _collectModuleWhitelisted;
-    mapping(address => bool) internal _referenceModuleWhitelisted;
+    mapping(address => bool) internal _profileCreatorAllowlisted;
+    mapping(address => bool) internal _followModuleAllowlisted;
+    mapping(address => bool) internal _collectModuleAllowlisted;
+    mapping(address => bool) internal _referenceModuleAllowlisted;
 
     mapping(uint256 => address) internal _dispatcherByProfile;
     mapping(bytes32 => uint256) internal _profileIdByHandleHash;

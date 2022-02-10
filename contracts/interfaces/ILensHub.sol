@@ -51,44 +51,44 @@ interface ILensHub {
     function setState(DataTypes.ProtocolState state) external;
 
     /**
-     * @notice Adds or removes a profile creator from the whitelist. This function can only be called by the current
+     * @notice Adds or removes a profile creator from the allowlist. This function can only be called by the current
      * governance address.
      *
-     * @param profileCreator The profile creator address to add or remove from the whitelist.
-     * @param whitelist Whether or not the profile creator should be whitelisted.
+     * @param profileCreator The profile creator address to add or remove from the allowlist.
+     * @param allowlist Whether or not the profile creator should be allowlisted.
      */
-    function whitelistProfileCreator(address profileCreator, bool whitelist) external;
+    function allowlistProfileCreator(address profileCreator, bool allowlist) external;
 
     /**
-     * @notice Adds or removes a follow module from the whitelist. This function can only be called by the current
+     * @notice Adds or removes a follow module from the allowlist. This function can only be called by the current
      * governance address.
      *
-     * @param followModule The follow module contract address to add or remove from the whitelist.
-     * @param whitelist Whether or not the follow module should be whitelisted.
+     * @param followModule The follow module contract address to add or remove from the allowlist.
+     * @param allowlist Whether or not the follow module should be allowlisted.
      */
-    function whitelistFollowModule(address followModule, bool whitelist) external;
+    function allowlistFollowModule(address followModule, bool allowlist) external;
 
     /**
-     * @notice Adds or removes a reference module from the whitelist. This function can only be called by the current
+     * @notice Adds or removes a reference module from the allowlist. This function can only be called by the current
      * governance address.
      *
-     * @param referenceModule The reference module contract to add or remove from the whitelist.
-     * @param whitelist Whether or not the reference module should be whitelisted.
+     * @param referenceModule The reference module contract to add or remove from the allowlist.
+     * @param allowlist Whether or not the reference module should be allowlisted.
      */
-    function whitelistReferenceModule(address referenceModule, bool whitelist) external;
+    function allowlistReferenceModule(address referenceModule, bool allowlist) external;
 
     /**
-     * @notice Adds or removes a collect module from the whitelist. This function can only be called by the current
+     * @notice Adds or removes a collect module from the allowlist. This function can only be called by the current
      * governance address.
      *
-     * @param collectModule The collect module contract address to add or remove from the whitelist.
-     * @param whitelist Whether or not the collect module should be whitelisted.
+     * @param collectModule The collect module contract address to add or remove from the allowlist.
+     * @param allowlist Whether or not the collect module should be allowlisted.
      */
-    function whitelistCollectModule(address collectModule, bool whitelist) external;
+    function allowlistCollectModule(address collectModule, bool allowlist) external;
 
     /**
      * @notice Creates a profile with the specified parameters, minting a profile NFT to the given recipient. This
-     * function must be called by a whitelisted profile creator.
+     * function must be called by a allowlisted profile creator.
      *
      * @param vars A CreateProfileData struct containing the following params:
      *      to: The address receiving the profile.
@@ -103,7 +103,7 @@ interface ILensHub {
      * @notice Sets a profile's follow module, must be called by the profile owner.
      *
      * @param profileId The token ID of the profile to set the follow module for.
-     * @param followModule The follow module to set for the given profile, must be whitelisted.
+     * @param followModule The follow module to set for the given profile, must be allowlisted.
      * @param followModuleData The data to be passed to the follow module for initialization.
      */
     function setFollowModule(
@@ -286,40 +286,40 @@ interface ILensHub {
     /// ************************
 
     /**
-     * @notice Returns whether or not a profile creator is whitelisted.
+     * @notice Returns whether or not a profile creator is allowlisted.
      *
      * @param profileCreator The address of the profile creator to check.
      *
-     * @return A boolean, true if the profile creator is whitelisted.
+     * @return A boolean, true if the profile creator is allowlisted.
      */
-    function isProfileCreatorWhitelisted(address profileCreator) external view returns (bool);
+    function isProfileCreatorAllowlisted(address profileCreator) external view returns (bool);
 
     /**
-     * @notice Returns whether or not a follow module is whitelisted.
+     * @notice Returns whether or not a follow module is allowlisted.
      *
      * @param followModule The address of the follow module to check.
      *
-     * @return A boolean, true if the the follow module is whitelisted.
+     * @return A boolean, true if the the follow module is allowlisted.
      */
-    function isFollowModuleWhitelisted(address followModule) external view returns (bool);
+    function isFollowModuleAllowlisted(address followModule) external view returns (bool);
 
     /**
-     * @notice Returns whether or not a reference module is whitelisted.
+     * @notice Returns whether or not a reference module is allowlisted.
      *
      * @param referenceModule The address of the reference module to check.
      *
-     * @return A boolean, true if the the reference module is whitelisted.
+     * @return A boolean, true if the the reference module is allowlisted.
      */
-    function isReferenceModuleWhitelisted(address referenceModule) external view returns (bool);
+    function isReferenceModuleAllowlisted(address referenceModule) external view returns (bool);
 
     /**
-     * @notice Returns whether or not a collect module is whitelisted.
+     * @notice Returns whether or not a collect module is allowlisted.
      *
      * @param collectModule The address of the collect module to check.
      *
-     * @return A boolean, true if the the collect module is whitelisted.
+     * @return A boolean, true if the the collect module is allowlisted.
      */
-    function isCollectModuleWhitelisted(address collectModule) external view returns (bool);
+    function isCollectModuleAllowlisted(address collectModule) external view returns (bool);
 
     /**
      * @notice Returns the currently configured governance address.

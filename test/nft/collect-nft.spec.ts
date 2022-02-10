@@ -22,7 +22,7 @@ makeSuiteCleanRoom('Collect NFT', function () {
   let collectNFT: CollectNFT;
   beforeEach(async function () {
     await expect(
-      lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+      lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
     ).to.not.be.reverted;
     await expect(
       lensHub.createProfile({

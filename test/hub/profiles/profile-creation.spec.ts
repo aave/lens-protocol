@@ -77,7 +77,7 @@ makeSuiteCleanRoom('Profile Creation', function () {
         ).to.be.revertedWith(ERRORS.HANDLE_CONTAINS_INVALID_CHARACTERS);
       });
 
-      it('User should fail to create a profile with a unwhitelisted follow module', async function () {
+      it('User should fail to create a profile with a unallowlisted follow module', async function () {
         await expect(
           lensHub.createProfile({
             to: userAddress,
@@ -87,12 +87,12 @@ makeSuiteCleanRoom('Profile Creation', function () {
             followModuleData: [],
             followNFTURI: MOCK_FOLLOW_NFT_URI,
           })
-        ).to.be.revertedWith(ERRORS.FOLLOW_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.FOLLOW_MODULE_NOT_ALLOWLISTED);
       });
 
       it('User should fail to create a profile with with invalid follow module data format', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -107,9 +107,9 @@ makeSuiteCleanRoom('Profile Creation', function () {
         ).to.be.revertedWith(ERRORS.NO_REASON_ABI_DECODE);
       });
 
-      it('User should fail to createa a profile when they are not a whitelisted profile creator', async function () {
+      it('User should fail to createa a profile when they are not a allowlisted profile creator', async function () {
         await expect(
-          lensHub.connect(governance).whitelistProfileCreator(userAddress, false)
+          lensHub.connect(governance).allowlistProfileCreator(userAddress, false)
         ).to.not.be.reverted;
 
         await expect(
@@ -121,7 +121,7 @@ makeSuiteCleanRoom('Profile Creation', function () {
             followModuleData: [],
             followNFTURI: MOCK_FOLLOW_NFT_URI,
           })
-        ).to.be.revertedWith(ERRORS.PROFILE_CREATOR_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.PROFILE_CREATOR_NOT_ALLOWLISTED);
       });
     });
 
@@ -217,9 +217,9 @@ makeSuiteCleanRoom('Profile Creation', function () {
         ).to.not.be.reverted;
       });
 
-      it('User should be able to create a profile with a whitelisted follow module', async function () {
+      it('User should be able to create a profile with a allowlisted follow module', async function () {
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(mockFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(mockFollowModule.address, true)
         ).to.not.be.reverted;
 
         await expect(

@@ -32,7 +32,7 @@ makeSuiteCleanRoom('Empty Collect Module', function () {
       })
     ).to.not.be.reverted;
     await expect(
-      lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+      lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
     ).to.not.be.reverted;
     await expect(
       lensHub.post({
@@ -84,7 +84,7 @@ makeSuiteCleanRoom('Empty Collect Module', function () {
       it('UserTwo should mirror the original post, fail to collect from their mirror without following the original profile when it has a follow module set', async function () {
         const secondProfileId = FIRST_PROFILE_ID + 1;
         await expect(
-          lensHub.connect(governance).whitelistFollowModule(approvalFollowModule.address, true)
+          lensHub.connect(governance).allowlistFollowModule(approvalFollowModule.address, true)
         ).to.not.be.reverted;
         await expect(
           lensHub.setFollowModule(FIRST_PROFILE_ID, approvalFollowModule.address, [])
@@ -124,7 +124,7 @@ makeSuiteCleanRoom('Empty Collect Module', function () {
 
     it('UserTwo should collect with success when following according the follow module set', async function () {
       await expect(
-        lensHub.connect(governance).whitelistFollowModule(approvalFollowModule.address, true)
+        lensHub.connect(governance).allowlistFollowModule(approvalFollowModule.address, true)
       ).to.not.be.reverted;
       await expect(
         lensHub.setFollowModule(FIRST_PROFILE_ID, approvalFollowModule.address, [])
@@ -165,7 +165,7 @@ makeSuiteCleanRoom('Empty Collect Module', function () {
     it('UserTwo should mirror the original post, collect with success from their mirror when following the original profile which has a follow module set', async function () {
       const secondProfileId = FIRST_PROFILE_ID + 1;
       await expect(
-        lensHub.connect(governance).whitelistFollowModule(approvalFollowModule.address, true)
+        lensHub.connect(governance).allowlistFollowModule(approvalFollowModule.address, true)
       ).to.not.be.reverted;
       await expect(
         lensHub.setFollowModule(FIRST_PROFILE_ID, approvalFollowModule.address, [])

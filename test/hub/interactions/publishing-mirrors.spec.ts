@@ -35,11 +35,11 @@ makeSuiteCleanRoom('Publishing mirrors', function () {
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistReferenceModule(mockReferenceModule.address, true)
+        lensHub.connect(governance).allowlistReferenceModule(mockReferenceModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
@@ -67,7 +67,7 @@ makeSuiteCleanRoom('Publishing mirrors', function () {
         ).to.be.revertedWith(ERRORS.NOT_PROFILE_OWNER_OR_DISPATCHER);
       });
 
-      it('User should fail to mirror with an unwhitelisted reference module', async function () {
+      it('User should fail to mirror with an unallowlisted reference module', async function () {
         await expect(
           lensHub.mirror({
             profileId: FIRST_PROFILE_ID,
@@ -76,7 +76,7 @@ makeSuiteCleanRoom('Publishing mirrors', function () {
             referenceModule: userAddress,
             referenceModuleData: [],
           })
-        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_ALLOWLISTED);
       });
 
       it('User should fail to mirror with invalid reference module data format', async function () {
@@ -195,7 +195,7 @@ makeSuiteCleanRoom('Publishing mirrors', function () {
       ).to.not.be.reverted;
 
       await expect(
-        lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+        lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
       ).to.not.be.reverted;
 
       await expect(
@@ -304,7 +304,7 @@ makeSuiteCleanRoom('Publishing mirrors', function () {
         ).to.be.revertedWith(ERRORS.SIGNATURE_INVALID);
       });
 
-      it('Testwallet should fail to mirror with sig with unwhitelisted reference module', async function () {
+      it('Testwallet should fail to mirror with sig with unallowlisted reference module', async function () {
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
         const referenceModuleData = [];
 
@@ -332,7 +332,7 @@ makeSuiteCleanRoom('Publishing mirrors', function () {
               deadline: MAX_UINT256,
             },
           })
-        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_ALLOWLISTED);
       });
 
       it('TestWallet should fail to mirror a publication with sig that does not exist yet', async function () {

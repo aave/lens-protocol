@@ -221,61 +221,61 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       'contracts/core/modules/reference/FollowerOnlyReferenceModule.sol:FollowerOnlyReferenceModule'
     );
 
-    // Whitelist the collect modules
-    console.log('\n\t-- Whitelisting Collect Modules --');
+    // Allowlist the collect modules
+    console.log('\n\t-- Allowlisting Collect Modules --');
     let governanceNonce = await ethers.provider.getTransactionCount(governance.address);
     await waitForTx(
-      lensHub.whitelistCollectModule(feeCollectModule.address, true, { nonce: governanceNonce++ })
+      lensHub.allowlistCollectModule(feeCollectModule.address, true, { nonce: governanceNonce++ })
     );
     await waitForTx(
-      lensHub.whitelistCollectModule(limitedFeeCollectModule.address, true, {
+      lensHub.allowlistCollectModule(limitedFeeCollectModule.address, true, {
         nonce: governanceNonce++,
       })
     );
     await waitForTx(
-      lensHub.whitelistCollectModule(timedFeeCollectModule.address, true, {
+      lensHub.allowlistCollectModule(timedFeeCollectModule.address, true, {
         nonce: governanceNonce++,
       })
     );
     await waitForTx(
-      lensHub.whitelistCollectModule(limitedTimedFeeCollectModule.address, true, {
+      lensHub.allowlistCollectModule(limitedTimedFeeCollectModule.address, true, {
         nonce: governanceNonce++,
       })
     );
     await waitForTx(
-      lensHub.whitelistCollectModule(revertCollectModule.address, true, {
+      lensHub.allowlistCollectModule(revertCollectModule.address, true, {
         nonce: governanceNonce++,
       })
     );
     await waitForTx(
-      lensHub.whitelistCollectModule(emptyCollectModule.address, true, { nonce: governanceNonce++ })
+      lensHub.allowlistCollectModule(emptyCollectModule.address, true, { nonce: governanceNonce++ })
     );
 
-    // Whitelist the follow modules
-    console.log('\n\t-- Whitelisting Follow Modules --');
+    // Allowlist the follow modules
+    console.log('\n\t-- Allowlisting Follow Modules --');
     await waitForTx(
-      lensHub.whitelistFollowModule(feeFollowModule.address, true, { nonce: governanceNonce++ })
+      lensHub.allowlistFollowModule(feeFollowModule.address, true, { nonce: governanceNonce++ })
     );
     await waitForTx(
-      lensHub.whitelistFollowModule(approvalFollowModule.address, true, {
-        nonce: governanceNonce++,
-      })
-    );
-
-    // Whitelist the reference module
-    console.log('\n\t-- Whitelisting Reference Module --');
-    await waitForTx(
-      lensHub.whitelistReferenceModule(followerOnlyReferenceModule.address, true, {
+      lensHub.allowlistFollowModule(approvalFollowModule.address, true, {
         nonce: governanceNonce++,
       })
     );
 
-    // Whitelist the currency
-    console.log('\n\t-- Whitelisting Currency in Module Globals --');
+    // Allowlist the reference module
+    console.log('\n\t-- Allowlisting Reference Module --');
+    await waitForTx(
+      lensHub.allowlistReferenceModule(followerOnlyReferenceModule.address, true, {
+        nonce: governanceNonce++,
+      })
+    );
+
+    // Allowlist the currency
+    console.log('\n\t-- Allowlisting Currency in Module Globals --');
     await waitForTx(
       moduleGlobals
         .connect(governance)
-        .whitelistCurrency(currency.address, true, { nonce: governanceNonce++ })
+        .allowlistCurrency(currency.address, true, { nonce: governanceNonce++ })
     );
 
     // Save and log the addresses

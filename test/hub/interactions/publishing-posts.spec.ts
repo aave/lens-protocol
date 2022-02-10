@@ -50,7 +50,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
         ).to.be.revertedWith(ERRORS.NOT_PROFILE_OWNER_OR_DISPATCHER);
       });
 
-      it('User should fail to post with an unwhitelisted collect module', async function () {
+      it('User should fail to post with an unallowlisted collect module', async function () {
         await expect(
           lensHub.post({
             profileId: FIRST_PROFILE_ID,
@@ -60,12 +60,12 @@ makeSuiteCleanRoom('Publishing Posts', function () {
             referenceModule: ZERO_ADDRESS,
             referenceModuleData: [],
           })
-        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_ALLOWLISTED);
       });
 
-      it('User should fail to post with an unwhitelisted reference module', async function () {
+      it('User should fail to post with an unallowlisted reference module', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -77,12 +77,12 @@ makeSuiteCleanRoom('Publishing Posts', function () {
             referenceModule: userAddress,
             referenceModuleData: [],
           })
-        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_ALLOWLISTED);
       });
 
       it('User should fail to post with invalid collect module data format', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(timedFeeCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(timedFeeCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -99,11 +99,11 @@ makeSuiteCleanRoom('Publishing Posts', function () {
 
       it('User should fail to post with invalid reference module data format', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
-          lensHub.connect(governance).whitelistReferenceModule(mockReferenceModule.address, true)
+          lensHub.connect(governance).allowlistReferenceModule(mockReferenceModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -122,7 +122,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
     context('Scenarios', function () {
       it('User should create a post with empty collect and reference module data, fetched post data should be accurate', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -145,12 +145,12 @@ makeSuiteCleanRoom('Publishing Posts', function () {
         expect(pub.referenceModule).to.eq(ZERO_ADDRESS);
       });
 
-      it('User should create a post with a whitelisted collect and reference module', async function () {
+      it('User should create a post with a allowlisted collect and reference module', async function () {
         await expect(
-          lensHub.connect(governance).whitelistReferenceModule(mockReferenceModule.address, true)
+          lensHub.connect(governance).allowlistReferenceModule(mockReferenceModule.address, true)
         ).to.not.be.reverted;
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         await expect(
@@ -184,7 +184,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
     context('Negatives', function () {
       it('Testwallet should fail to post with sig with signature deadline mismatch', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -222,7 +222,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
 
       it('Testwallet should fail to post with sig with invalid deadline', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -260,7 +260,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
 
       it('Testwallet should fail to post with sig with invalid nonce', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -296,7 +296,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
         ).to.be.revertedWith(ERRORS.SIGNATURE_INVALID);
       });
 
-      it('Testwallet should fail to post with sig with an unwhitelisted collect module', async function () {
+      it('Testwallet should fail to post with sig with an unallowlisted collect module', async function () {
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
         const collectModuleData = [];
         const referenceModuleData = [];
@@ -327,12 +327,12 @@ makeSuiteCleanRoom('Publishing Posts', function () {
               deadline: MAX_UINT256,
             },
           })
-        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.COLLECT_MODULE_NOT_ALLOWLISTED);
       });
 
-      it('Testwallet should fail to post with sig with an unwhitelisted reference module', async function () {
+      it('Testwallet should fail to post with sig with an unallowlisted reference module', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -365,12 +365,12 @@ makeSuiteCleanRoom('Publishing Posts', function () {
               deadline: MAX_UINT256,
             },
           })
-        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_WHITELISTED);
+        ).to.be.revertedWith(ERRORS.REFERENCE_MODULE_NOT_ALLOWLISTED);
       });
 
       it('TestWallet should sign attempt to post with sig, cancel via empty permitForAll, then fail to post with sig', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();
@@ -412,7 +412,7 @@ makeSuiteCleanRoom('Publishing Posts', function () {
     context('Scenarios', function () {
       it('TestWallet should post with sig, fetched post data should be accurate', async function () {
         await expect(
-          lensHub.connect(governance).whitelistCollectModule(emptyCollectModule.address, true)
+          lensHub.connect(governance).allowlistCollectModule(emptyCollectModule.address, true)
         ).to.not.be.reverted;
 
         const nonce = (await lensHub.sigNonces(testWallet.address)).toNumber();

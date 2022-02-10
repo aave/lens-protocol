@@ -43,7 +43,7 @@ contract FeeFollowModule is IFollowModule, FeeModuleBase, FollowValidatorFollowM
      * @notice This follow module levies a fee on follows.
      *
      * @param data The arbitrary data parameter, decoded into:
-     *      address currency: The currency address, must be internally whitelisted.
+     *      address currency: The currency address, must be internally allowlisted.
      *      uint256 amount: The currency total amount to levy.
      *      address recipient: The custom recipient address to direct earnings to.
      *
@@ -59,7 +59,7 @@ contract FeeFollowModule is IFollowModule, FeeModuleBase, FollowValidatorFollowM
             data,
             (uint256, address, address)
         );
-        if (!_currencyWhitelisted(currency) || recipient == address(0) || amount < BPS_MAX)
+        if (!_currencyAllowlisted(currency) || recipient == address(0) || amount < BPS_MAX)
             revert Errors.InitParamsInvalid();
 
         _dataByProfile[profileId].amount = amount;

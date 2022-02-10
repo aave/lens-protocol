@@ -24,8 +24,8 @@ abstract contract FeeModuleBase {
         emit Events.FeeModuleBaseConstructed(moduleGlobals, block.timestamp);
     }
 
-    function _currencyWhitelisted(address currency) internal view returns (bool) {
-        return IModuleGlobals(MODULE_GLOBALS).isCurrencyWhitelisted(currency);
+    function _currencyAllowlisted(address currency) internal view returns (bool) {
+        return IModuleGlobals(MODULE_GLOBALS).isCurrencyAllowlisted(currency);
     }
 
     function _treasuryData() internal view returns (address, uint16) {

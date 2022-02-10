@@ -30,7 +30,7 @@ makeSuiteCleanRoom('Revert Collect Module', function () {
       })
     ).to.not.be.reverted;
     await expect(
-      lensHub.connect(governance).whitelistCollectModule(revertCollectModule.address, true)
+      lensHub.connect(governance).allowlistCollectModule(revertCollectModule.address, true)
     ).to.not.be.reverted;
     await expect(
       lensHub.post({
