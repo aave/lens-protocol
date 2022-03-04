@@ -100,7 +100,7 @@ contract LimitedFeeCollectModule is ICollectModule, FeeModuleBase, FollowValidat
         uint256 profileId,
         uint256 pubId,
         bytes calldata data
-    ) external override onlyHub {
+    ) virtual external override onlyHub {
         _checkFollowValidity(profileId, collector);
 
         if (

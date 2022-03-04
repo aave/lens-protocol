@@ -28,7 +28,8 @@ library Errors {
     error CallerNotCollectNFT();
     error BlockNumberInvalid();
     error ArrayMismatch();
-
+    error NotInFollowerLimit();
+    
     // Module Errors
     error InitParamsInvalid();
     error ZeroCurrency();

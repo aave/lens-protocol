@@ -22,6 +22,8 @@ import {
   FollowerOnlyReferenceModule,
   FollowerOnlyReferenceModule__factory,
   FollowNFT__factory,
+  FollowOnlyCollect,
+  FollowOnlyCollect__factory,
   Helper,
   Helper__factory,
   InteractionLogic__factory,
@@ -62,7 +64,9 @@ export const REFERRAL_FEE_BPS = 250;
 export const LENS_HUB_NFT_NAME = 'Lens Profiles';
 export const LENS_HUB_NFT_SYMBOL = 'LENS';
 export const MOCK_PROFILE_HANDLE = 'plant1ghost.eth';
+export const MOCK_PROFILE_HANDLE_TWO = 'plant1devil.eth';
 export const FIRST_PROFILE_ID = 1;
+export const SECOND_PROFILE_ID = 2;
 export const MOCK_URI =
   'https://ipfs.fleek.co/ipfs/plantghostplantghostplantghostplantghostplantghostplantghos';
 export const OTHER_MOCK_URI =
@@ -76,10 +80,12 @@ export let accounts: Signer[];
 export let deployer: Signer;
 export let user: Signer;
 export let userTwo: Signer;
+export let userThree: Signer;
 export let governance: Signer;
 export let deployerAddress: string;
 export let userAddress: string;
 export let userTwoAddress: string;
+export let userThreeAddress: string;
 export let governanceAddress: string;
 export let followNFTImplAddress: string;
 export let collectNFTImplAddress: string;
@@ -104,6 +110,7 @@ export let emptyCollectModule: EmptyCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
+export let followOnlyCollect: FollowOnlyCollect;
 
 // Follow
 export let approvalFollowModule: ApprovalFollowModule;
@@ -134,9 +141,11 @@ before(async function () {
   user = accounts[1];
   userTwo = accounts[2];
   governance = accounts[3];
+  userThree = accounts[4];
   deployerAddress = await deployer.getAddress();
   userAddress = await user.getAddress();
   userTwoAddress = await userTwo.getAddress();
+  userThreeAddress = await userThree.getAddress();
   governanceAddress = await governance.getAddress();
   treasuryAddress = await accounts[4].getAddress();
   mockModuleData = abiCoder.encode(['uint256'], [1]);
@@ -204,6 +213,10 @@ before(async function () {
     moduleGlobals.address
   );
   limitedTimedFeeCollectModule = await new LimitedTimedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address
+  );
+  followOnlyCollect = await new FollowOnlyCollect__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
   );

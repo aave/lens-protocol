@@ -12,6 +12,7 @@ import {
   FeeFollowModule__factory,
   FollowerOnlyReferenceModule__factory,
   FollowNFT__factory,
+  FollowOnlyCollect__factory,
   InteractionLogic__factory,
   LimitedFeeCollectModule__factory,
   LimitedTimedFeeCollectModule__factory,
@@ -131,6 +132,12 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
       nonce: deployerNonce++,
     })
   );
+  console.log('\n\t-- Deploying followOnlyCollectModule --');
+  const followOnlyCollectModule = await deployContract(
+    new FollowOnlyCollect__factory(deployer).deploy(lensHub.address, moduleGlobals.address, {
+      nonce: deployerNonce++,
+    })
+  );
   console.log('\n\t-- Deploying timedFeeCollectModule --');
   const timedFeeCollectModule = await deployContract(
     new TimedFeeCollectModule__factory(deployer).deploy(lensHub.address, moduleGlobals.address, {
@@ -187,6 +194,11 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
     })
   );
   await waitForTx(
+    lensHub.whitelistCollectModule(followOnlyCollectModule.address, true, {
+      nonce: governanceNonce++,
+    })
+  );
+  await waitForTx(
     lensHub.whitelistCollectModule(timedFeeCollectModule.address, true, { nonce: governanceNonce++ })
   );
   await waitForTx(
@@ -238,6 +250,7 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
     'module globals': moduleGlobals.address,
     'fee collect module': feeCollectModule.address,
     'limited fee collect module': limitedFeeCollectModule.address,
+    'follow only collect module': followOnlyCollectModule.address,
     'timed fee collect module': timedFeeCollectModule.address,
     'limited timed fee collect module': limitedTimedFeeCollectModule.address,
     'revert collect module': revertCollectModule.address,

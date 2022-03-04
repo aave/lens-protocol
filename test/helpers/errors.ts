@@ -28,6 +28,7 @@ export const ERRORS = {
   COLLECT_NOT_ALLOWED: 'CollectNotAllowed()',
   MINT_LIMIT_EXCEEDED: 'MintLimitExceeded()',
   FOLLOW_INVALID: 'FollowInvalid()',
+  NOT_IN_FOLLOWER_LIMIT: 'NotInFollowerLimit()',
   MODULE_DATA_MISMATCH: 'ModuleDataMismatch()',
   FOLLOW_NOT_APPROVED: 'FollowNotApproved()',
   ARRAY_MISMATCH: 'ArrayMismatch()',
