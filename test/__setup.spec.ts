@@ -31,6 +31,8 @@ import {
   LimitedFeeCollectModule__factory,
   LimitedTimedFeeCollectModule,
   LimitedTimedFeeCollectModule__factory,
+  StepwiseFeeCollectModule,
+  StepwiseFeeCollectModule__factory,
   MockFollowModule,
   MockFollowModule__factory,
   MockReferenceModule,
@@ -76,10 +78,12 @@ export let accounts: Signer[];
 export let deployer: Signer;
 export let user: Signer;
 export let userTwo: Signer;
+export let userThree: Signer;
 export let governance: Signer;
 export let deployerAddress: string;
 export let userAddress: string;
 export let userTwoAddress: string;
+export let userThreeAddress: string;
 export let governanceAddress: string;
 export let followNFTImplAddress: string;
 export let collectNFTImplAddress: string;
@@ -104,6 +108,7 @@ export let emptyCollectModule: EmptyCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
+export let stepwiseFeeCollectModule: StepwiseFeeCollectModule;
 
 // Follow
 export let approvalFollowModule: ApprovalFollowModule;
@@ -134,11 +139,13 @@ before(async function () {
   user = accounts[1];
   userTwo = accounts[2];
   governance = accounts[3];
+  userThree = accounts[5]; // skip over governance + treasury
   deployerAddress = await deployer.getAddress();
   userAddress = await user.getAddress();
   userTwoAddress = await userTwo.getAddress();
   governanceAddress = await governance.getAddress();
   treasuryAddress = await accounts[4].getAddress();
+  userThreeAddress = await userThree.getAddress();
   mockModuleData = abiCoder.encode(['uint256'], [1]);
   // Deployment
   helper = await new Helper__factory(deployer).deploy();
@@ -204,6 +211,10 @@ before(async function () {
     moduleGlobals.address
   );
   limitedTimedFeeCollectModule = await new LimitedTimedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address
+  );
+  stepwiseFeeCollectModule = await new StepwiseFeeCollectModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
   );
