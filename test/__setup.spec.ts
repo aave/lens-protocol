@@ -11,6 +11,8 @@ import {
   CollectNFT__factory,
   Currency,
   Currency__factory,
+  CurrencyTwo,
+  CurrencyTwo__factory,
   EmptyCollectModule,
   EmptyCollectModule__factory,
   Events,
@@ -29,12 +31,16 @@ import {
   LensHub__factory,
   LimitedFeeCollectModule,
   LimitedFeeCollectModule__factory,
+  AlterateTokenCollectModule,
+  AlterateTokenCollectModule__factory,
   LimitedTimedFeeCollectModule,
   LimitedTimedFeeCollectModule__factory,
   MockFollowModule,
   MockFollowModule__factory,
   MockReferenceModule,
   MockReferenceModule__factory,
+  MockZeroXExchange,
+  MockZeroXExchange__factory,
   ModuleGlobals,
   ModuleGlobals__factory,
   ProfileTokenURILogic__factory,
@@ -88,11 +94,13 @@ export let testWallet: Wallet;
 export let lensHubImpl: LensHub;
 export let lensHub: LensHub;
 export let currency: Currency;
+export let currencyTwo: CurrencyTwo;
 export let abiCoder: AbiCoder;
 export let mockModuleData: BytesLike;
 export let hubLibs: LensHubLibraryAddresses;
 export let eventsLib: Events;
 export let moduleGlobals: ModuleGlobals;
+export let mockZeroXExchange: MockZeroXExchange;
 export let helper: Helper;
 
 /* Modules */
@@ -103,6 +111,7 @@ export let timedFeeCollectModule: TimedFeeCollectModule;
 export let emptyCollectModule: EmptyCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
+export let alterateTokenCollectModule: AlterateTokenCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
 
 // Follow
@@ -188,8 +197,11 @@ before(async function () {
   // Connect the hub proxy to the LensHub factory and the user for ease of use.
   lensHub = LensHub__factory.connect(proxy.address, user);
 
+  mockZeroXExchange = await new MockZeroXExchange__factory(deployer).deploy();
+
   // Currency
   currency = await new Currency__factory(deployer).deploy();
+  currencyTwo = await new CurrencyTwo__factory(deployer).deploy();
 
   // Modules
   emptyCollectModule = await new EmptyCollectModule__factory(deployer).deploy(lensHub.address);
@@ -203,6 +215,10 @@ before(async function () {
     moduleGlobals.address
   );
   limitedFeeCollectModule = await new LimitedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address
+  );
+  alterateTokenCollectModule = await new AlterateTokenCollectModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
   );
