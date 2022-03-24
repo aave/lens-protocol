@@ -11,6 +11,10 @@ import {
   CollectNFT__factory,
   Currency,
   Currency__factory,
+  NftCollection,
+  NftCollection__factory,
+  NftCollectionEnumerable,
+  NftCollectionEnumerable__factory,
   EmptyCollectModule,
   EmptyCollectModule__factory,
   Events,
@@ -29,6 +33,8 @@ import {
   LensHub__factory,
   LimitedFeeCollectModule,
   LimitedFeeCollectModule__factory,
+  NftFeeSplitterCollectModule,
+  NftFeeSplitterCollectModule__factory,
   LimitedTimedFeeCollectModule,
   LimitedTimedFeeCollectModule__factory,
   MockFollowModule,
@@ -93,6 +99,8 @@ export let testWallet: Wallet;
 export let lensHubImpl: LensHub;
 export let lensHub: LensHub;
 export let currency: Currency;
+export let nftCollectionEnumerable: NftCollectionEnumerable;
+export let nftCollection: NftCollection;
 export let abiCoder: AbiCoder;
 export let mockModuleData: BytesLike;
 export let hubLibs: LensHubLibraryAddresses;
@@ -109,6 +117,7 @@ export let timedFeeCollectModule: TimedFeeCollectModule;
 export let emptyCollectModule: EmptyCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
+export let nftFeeSplitterCollectModule: NftFeeSplitterCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
 
 // Follow
@@ -122,6 +131,18 @@ export let mockReferenceModule: MockReferenceModule;
 
 export function makeSuiteCleanRoom(name: string, tests: () => void) {
   describe(name, () => {
+    beforeEach(async function () {
+      await takeSnapshot();
+    });
+    tests();
+    afterEach(async function () {
+      await revertToSnapshot();
+    });
+  });
+}
+
+export function makeSuiteCleanRoomOnly(name: string, tests: () => void) {
+  describe.only(name, () => {
     beforeEach(async function () {
       await takeSnapshot();
     });
@@ -205,6 +226,10 @@ before(async function () {
   // Currency
   currency = await new Currency__factory(deployer).deploy();
 
+  // NftCollections
+  nftCollection = await new NftCollection__factory(deployer).deploy();
+  nftCollectionEnumerable = await new NftCollectionEnumerable__factory(deployer).deploy();
+
   // Modules
   emptyCollectModule = await new EmptyCollectModule__factory(deployer).deploy(lensHub.address);
   revertCollectModule = await new RevertCollectModule__factory(deployer).deploy();
@@ -217,6 +242,10 @@ before(async function () {
     moduleGlobals.address
   );
   limitedFeeCollectModule = await new LimitedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address
+  );
+  nftFeeSplitterCollectModule = await new NftFeeSplitterCollectModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
   );
