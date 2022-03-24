@@ -19,6 +19,7 @@ import {
   PublishingLogic__factory,
   RevertCollectModule__factory,
   TimedFeeCollectModule__factory,
+  TokenGatedFollowModule__factory,
   TransparentUpgradeableProxy__factory,
   ProfileTokenURILogic__factory,
   LensPeripheryDataProvider__factory,
@@ -29,7 +30,7 @@ const TREASURY_FEE_BPS = 50;
 const LENS_HUB_NFT_NAME = 'Various Vegetables';
 const LENS_HUB_NFT_SYMBOL = 'VVGT';
 
-task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre) => {
+task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({ }, hre) => {
   // Note that the use of these signers is a placeholder and is not meant to be used in
   // production.
   const ethers = hre.ethers;
@@ -179,6 +180,11 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
   const approvalFollowModule = await deployContract(
     new ApprovalFollowModule__factory(deployer).deploy(lensHub.address, { nonce: deployerNonce++ })
   );
+  console.log('\n\t-- Deploying tokenGatedFollowModule --');
+  const tokenGatedFollowModule = await deployContract(
+    new TokenGatedFollowModule__factory(deployer).deploy(lensHub.address, { nonce: deployerNonce++ })
+  );
+
 
   // Deploy reference module
   console.log('\n\t-- Deploying followerOnlyReferenceModule --');
@@ -224,6 +230,9 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
   await waitForTx(
     lensHub.whitelistFollowModule(approvalFollowModule.address, true, { nonce: governanceNonce++ })
   );
+  await waitForTx(
+    lensHub.whitelistFollowModule(tokenGatedFollowModule.address, true, { nonce: governanceNonce++ })
+  );
 
   // Whitelist the reference module
   console.log('\n\t-- Whitelisting Reference Module --');
@@ -260,6 +269,7 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
     'empty collect module': emptyCollectModule.address,
     'fee follow module': feeFollowModule.address,
     'approval follow module': approvalFollowModule.address,
+    'token gated follow module': tokenGatedFollowModule.address,
     'follower only reference module': followerOnlyReferenceModule.address,
   };
   const json = JSON.stringify(addrs, null, 2);

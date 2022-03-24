@@ -43,6 +43,8 @@ import {
   RevertCollectModule__factory,
   TimedFeeCollectModule,
   TimedFeeCollectModule__factory,
+  TokenGatedFollowModule,
+  TokenGatedFollowModule__factory,
   TransparentUpgradeableProxy__factory,
   LensPeripheryDataProvider,
   LensPeripheryDataProvider__factory,
@@ -115,6 +117,7 @@ export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
 export let approvalFollowModule: ApprovalFollowModule;
 export let feeFollowModule: FeeFollowModule;
 export let mockFollowModule: MockFollowModule;
+export let tokenGatedFollowModule: TokenGatedFollowModule;
 
 // Reference
 export let followerOnlyReferenceModule: FollowerOnlyReferenceModule;
@@ -230,6 +233,7 @@ before(async function () {
     moduleGlobals.address
   );
   approvalFollowModule = await new ApprovalFollowModule__factory(deployer).deploy(lensHub.address);
+  tokenGatedFollowModule = await new TokenGatedFollowModule__factory(deployer).deploy(lensHub.address);
   followerOnlyReferenceModule = await new FollowerOnlyReferenceModule__factory(deployer).deploy(
     lensHub.address
   );

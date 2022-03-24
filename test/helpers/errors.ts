@@ -22,6 +22,7 @@ export const ERRORS = {
   HANDLE_CONTAINS_INVALID_CHARACTERS: 'HandleContainsInvalidCharacters()',
   NOT_FOLLOW_NFT: 'CallerNotFollowNFT()',
   NOT_COLLECT_NFT: 'CallerNotCollectNFT()',
+  NOT_ENOUGH_TOKENS: 'NotEnoughTokens()',
   BLOCK_NUMBER_INVALID: 'BlockNumberInvalid()',
   INIT_PARAMS_INVALID: 'InitParamsInvalid()',
   ZERO_CURRENCY: 'ZeroCurrency()',
