@@ -1,4 +1,4 @@
-import { AbiCoder } from '@ethersproject/contracts/node_modules/@ethersproject/abi';
+import { AbiCoder } from '@ethersproject/abi';
 import { parseEther } from '@ethersproject/units';
 import '@nomiclabs/hardhat-ethers';
 import { expect, use } from 'chai';
@@ -11,6 +11,8 @@ import {
   CollectNFT__factory,
   Currency,
   Currency__factory,
+  ACurrency,
+  ACurrency__factory,
   EmptyCollectModule,
   EmptyCollectModule__factory,
   Events,
@@ -29,8 +31,12 @@ import {
   LensHub__factory,
   LimitedFeeCollectModule,
   LimitedFeeCollectModule__factory,
+  AaveLimitedFeeCollectModule,
+  AaveLimitedFeeCollectModule__factory,
   LimitedTimedFeeCollectModule,
   LimitedTimedFeeCollectModule__factory,
+  MockLendingPool,
+  MockLendingPool__factory,
   MockFollowModule,
   MockFollowModule__factory,
   MockReferenceModule,
@@ -93,6 +99,9 @@ export let testWallet: Wallet;
 export let lensHubImpl: LensHub;
 export let lensHub: LensHub;
 export let currency: Currency;
+export let aCurrency: ACurrency;
+export let currencyTwo: Currency;
+export let lendingPool: MockLendingPool;
 export let abiCoder: AbiCoder;
 export let mockModuleData: BytesLike;
 export let hubLibs: LensHubLibraryAddresses;
@@ -109,6 +118,7 @@ export let timedFeeCollectModule: TimedFeeCollectModule;
 export let emptyCollectModule: EmptyCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
+export let aaveLimitedFeeCollectModule: AaveLimitedFeeCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
 
 // Follow
@@ -204,6 +214,14 @@ before(async function () {
 
   // Currency
   currency = await new Currency__factory(deployer).deploy();
+  currencyTwo = await new Currency__factory(deployer).deploy();
+  aCurrency = await new ACurrency__factory(deployer).deploy();
+
+  // LendingPool
+  lendingPool = await new MockLendingPool__factory(deployer).deploy(
+    currency.address,
+    aCurrency.address
+  );
 
   // Modules
   emptyCollectModule = await new EmptyCollectModule__factory(deployer).deploy(lensHub.address);
@@ -219,6 +237,11 @@ before(async function () {
   limitedFeeCollectModule = await new LimitedFeeCollectModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
+  );
+  aaveLimitedFeeCollectModule = await new AaveLimitedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address,
+    lendingPool.address
   );
   limitedTimedFeeCollectModule = await new LimitedTimedFeeCollectModule__factory(deployer).deploy(
     lensHub.address,
@@ -253,6 +276,7 @@ before(async function () {
 
   expect(lensHub).to.not.be.undefined;
   expect(currency).to.not.be.undefined;
+  expect(currencyTwo).to.not.be.undefined;
   expect(timedFeeCollectModule).to.not.be.undefined;
   expect(mockFollowModule).to.not.be.undefined;
   expect(mockReferenceModule).to.not.be.undefined;
