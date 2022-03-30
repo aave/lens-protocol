@@ -11,6 +11,10 @@ import {
   CollectNFT__factory,
   Currency,
   Currency__factory,
+  CarbonCredits,
+  CarbonCredits__factory,
+  YakswapV2Router,
+  YakswapV2Router__factory,
   EmptyCollectModule,
   EmptyCollectModule__factory,
   Events,
@@ -39,6 +43,8 @@ import {
   ModuleGlobals__factory,
   ProfileTokenURILogic__factory,
   PublishingLogic__factory,
+  SwapCollectModule,
+  SwapCollectModule__factory,
   RevertCollectModule,
   RevertCollectModule__factory,
   TimedFeeCollectModule,
@@ -93,6 +99,8 @@ export let testWallet: Wallet;
 export let lensHubImpl: LensHub;
 export let lensHub: LensHub;
 export let currency: Currency;
+export let carbonCredits: CarbonCredits;
+export let yakswapV2Router: YakswapV2Router;
 export let abiCoder: AbiCoder;
 export let mockModuleData: BytesLike;
 export let hubLibs: LensHubLibraryAddresses;
@@ -110,6 +118,7 @@ export let emptyCollectModule: EmptyCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
+export let swapCollectModule: SwapCollectModule;
 
 // Follow
 export let approvalFollowModule: ApprovalFollowModule;
@@ -205,6 +214,10 @@ before(async function () {
   // Currency
   currency = await new Currency__factory(deployer).deploy();
 
+  // SwapCollectModule
+  carbonCredits = await new CarbonCredits__factory(deployer).deploy();
+  yakswapV2Router = await new YakswapV2Router__factory(deployer).deploy();
+
   // Modules
   emptyCollectModule = await new EmptyCollectModule__factory(deployer).deploy(lensHub.address);
   revertCollectModule = await new RevertCollectModule__factory(deployer).deploy();
@@ -221,6 +234,10 @@ before(async function () {
     moduleGlobals.address
   );
   limitedTimedFeeCollectModule = await new LimitedTimedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address
+  );
+  swapCollectModule = await new SwapCollectModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
   );
@@ -253,6 +270,8 @@ before(async function () {
 
   expect(lensHub).to.not.be.undefined;
   expect(currency).to.not.be.undefined;
+  expect(carbonCredits).to.not.be.undefined;
+  expect(yakswapV2Router).to.not.be.undefined;
   expect(timedFeeCollectModule).to.not.be.undefined;
   expect(mockFollowModule).to.not.be.undefined;
   expect(mockReferenceModule).to.not.be.undefined;
