@@ -24,6 +24,7 @@ import {
   LensPeriphery__factory,
   UIDataProvider__factory,
   ProfileFollowModule__factory,
+  SuperfluidCFAFollowModule__factory,
 } from '../typechain-types';
 import { deployWithVerify, waitForTx } from './helpers/utils';
 
@@ -46,7 +47,7 @@ export let runtimeHRE: HardhatRuntimeEnvironment;
  * ModuleGlobals contract.
  */
 task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verification').setAction(
-  async ({}, hre) => {
+  async ({ }, hre) => {
     // Note that the use of these signers is a placeholder and is not meant to be used in
     // production.
     runtimeHRE = hre;
@@ -241,6 +242,18 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
     // [lensHub.address],
     // 'contracts/core/modules/follow/ApprovalFollowModule.sol:ApprovalFollowModule'
     // );
+    // console.log('\n\t-- Deploying supefluidCFAFollowModule --');
+    // if (!process.env.SUPERFLUID_HOST_ADDRESS) {
+    //   throw new Error('🚫 SUPERFLUID_HOST_ADDRESS env var is required');
+    // }
+    // await deployWithVerify(
+    //   new SuperfluidCFAFollowModule__factory(deployer).deploy(
+    //     lensHub.address,
+    //     moduleGlobals.address,
+    //     process.env.SUPERFLUID_HOST_ADDRESS,
+    //     { nonce: deployerNonce++ },
+    //   )
+    // );
 
     // Deploy reference module
     console.log('\n\t-- Deploying followerOnlyReferenceModule --');
@@ -306,6 +319,9 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
     // nonce: governanceNonce++,
     // })
     // );
+    // await waitForTx(
+    //   lensHub.whitelistFollowModule(superfluidCFAFollowModule.address, true, { nonce: governanceNonce++ })
+    // );
 
     // Whitelist the reference module
     console.log('\n\t-- Whitelisting Reference Module --');
@@ -336,6 +352,7 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       'profile follow module': profileFollowModule.address,
       // --- COMMENTED OUT AS THIS IS NOT A LAUNCH MODULE ---
       // 'approval follow module': approvalFollowModule.address,
+      // 'superfluid follow module': superfluidCFAFollowModule.address,
       'follower only reference module': followerOnlyReferenceModule.address,
       'UI data provider': uiDataProvider.address,
     };

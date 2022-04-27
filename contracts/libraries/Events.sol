@@ -480,6 +480,15 @@ library Events {
     event ModuleBaseConstructed(address indexed hub, uint256 timestamp);
 
     /**
+     * @notice Emitted when a `SuperfluidCFAFollowModule` is constructed.
+     *
+     * @param moduleGlobals The ModuleGlobals contract address used.
+     * @param superfluidHost The Superfluid host contract address used.
+     * @param timestamp The current block timestamp.
+     */
+    event SuperfluidModuleBaseConstructed(address indexed moduleGlobals, address indexed superfluidHost, uint256 timestamp);
+
+    /**
      * @notice Emitted when one or multiple addresses are approved (or disapproved) for following in
      * the `ApprovalFollowModule`.
      *

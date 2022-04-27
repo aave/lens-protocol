@@ -5,6 +5,7 @@ import { task } from 'hardhat/config';
 import {
   LensHub__factory,
   ApprovalFollowModule__factory,
+  SuperfluidCFAFollowModule__factory,
   CollectNFT__factory,
   Currency__factory,
   FreeCollectModule__factory,
@@ -187,6 +188,18 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
   // const approvalFollowModule = await deployContract(
   //   new ApprovalFollowModule__factory(deployer).deploy(lensHub.address, { nonce: deployerNonce++ })
   // );
+  // console.log('\n\t-- Deploying superfluidCFAFollowModule --');
+  // if (!process.env.SUPERFLUID_HOST_ADDRESS) {
+  //   throw new Error('🚫 SUPERFLUID_HOST_ADDRESS env var is required');
+  // }
+  // const superfluidCFAFollowModule = await deployContract(
+  //   new SuperfluidCFAFollowModule__factory(deployer).deploy(
+  //     lensHub.address,
+  //     moduleGlobals.address,
+  //     process.env.SUPERFLUID_HOST_ADDRESS,
+  //     { nonce: deployerNonce++ },
+  //   )
+  // );
 
   // Deploy reference module
   console.log('\n\t-- Deploying followerOnlyReferenceModule --');
@@ -244,6 +257,9 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
   // await waitForTx(
   // lensHub.whitelistFollowModule(approvalFollowModule.address, true, { nonce: governanceNonce++ })
   // );
+  // await waitForTx(
+  // lensHub.whitelistFollowModule(superfluidCFAFollowModule.address, true, { nonce: governanceNonce++ })
+  // );
 
   // Whitelist the reference module
   console.log('\n\t-- Whitelisting Reference Module --');
@@ -282,6 +298,7 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
     'profile follow module': profileFollowModule.address,
     // --- COMMENTED OUT AS THIS IS NOT A LAUNCH MODULE ---
     // 'approval follow module': approvalFollowModule.address,
+    // 'superfluid follow module': superfluidCFAFollowModule.address,
     'follower only reference module': followerOnlyReferenceModule.address,
     'UI data provider': uiDataProvider.address,
   };

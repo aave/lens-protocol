@@ -9,6 +9,7 @@ import path from 'path';
 dotenv.config({ path: '../.env' });
 
 import '@nomiclabs/hardhat-ethers';
+import '@nomiclabs/hardhat-web3';
 import '@nomiclabs/hardhat-etherscan';
 import '@typechain/hardhat';
 import 'solidity-coverage';

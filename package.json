@@ -36,6 +36,8 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "2.0.2",
     "@nomiclabs/hardhat-etherscan": "2.1.8",
+    "@nomiclabs/hardhat-web3": "2.0.0",
+    "@superfluid-finance/sdk-core": "0.3.2",
     "@typechain/ethers-v5": "8.0.5",
     "@typechain/hardhat": "3.0.0",
     "@types/chai": "4.2.22",
@@ -63,7 +65,8 @@
     "ts-generator": "0.1.1",
     "ts-node": "10.4.0",
     "typechain": "6.0.5",
-    "typescript": "4.5.2"
+    "typescript": "4.5.2",
+    "web3": "1.7.1"
   },
   "husky": {
     "hooks": {
@@ -71,7 +74,8 @@
     }
   },
   "dependencies": {
-    "@openzeppelin/contracts": "4.5.0"
+    "@openzeppelin/contracts": "4.5.0",
+    "@superfluid-finance/ethereum-contracts": "1.1.1"
   },
   "author": "Lens",
   "contributors": [
