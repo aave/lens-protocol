@@ -39,6 +39,7 @@ library Errors {
     error CollectExpired();
     error FollowInvalid();
     error ModuleDataMismatch();
+    error NotHaveWhitelistNftToken();
     error FollowNotApproved();
     error MintLimitExceeded();
     error CollectNotAllowed();

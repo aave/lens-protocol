@@ -43,6 +43,8 @@ import {
   RevertCollectModule__factory,
   TimedFeeCollectModule,
   TimedFeeCollectModule__factory,
+  NftGatedFollowModule,
+  NftGatedFollowModule__factory,
   TransparentUpgradeableProxy__factory,
   LensPeriphery,
   LensPeriphery__factory,
@@ -120,6 +122,7 @@ export let approvalFollowModule: ApprovalFollowModule;
 export let profileFollowModule: ProfileFollowModule;
 export let feeFollowModule: FeeFollowModule;
 export let mockFollowModule: MockFollowModule;
+export let nftGatedFollowModule: NftGatedFollowModule;
 
 // Reference
 export let followerOnlyReferenceModule: FollowerOnlyReferenceModule;
@@ -235,6 +238,7 @@ before(async function () {
   );
   profileFollowModule = await new ProfileFollowModule__factory(deployer).deploy(lensHub.address);
   approvalFollowModule = await new ApprovalFollowModule__factory(deployer).deploy(lensHub.address);
+  nftGatedFollowModule = await new NftGatedFollowModule__factory(deployer).deploy(lensHub.address);
   followerOnlyReferenceModule = await new FollowerOnlyReferenceModule__factory(deployer).deploy(
     lensHub.address
   );
