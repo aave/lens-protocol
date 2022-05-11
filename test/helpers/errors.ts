@@ -29,6 +29,7 @@ export const ERRORS = {
   INIT_PARAMS_INVALID: 'InitParamsInvalid()',
   COLLECT_EXPIRED: 'CollectExpired()',
   COLLECT_NOT_ALLOWED: 'CollectNotAllowed()',
+  NOT_ENOUGH_TOKENS: 'NotEnoughTokens()',
   MINT_LIMIT_EXCEEDED: 'MintLimitExceeded()',
   FOLLOW_INVALID: 'FollowInvalid()',
   MODULE_DATA_MISMATCH: 'ModuleDataMismatch()',

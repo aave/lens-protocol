@@ -21,6 +21,8 @@ import {
   FeeFollowModule__factory,
   FollowerOnlyReferenceModule,
   FollowerOnlyReferenceModule__factory,
+  TokenGatedReferenceModule,
+  TokenGatedReferenceModule__factory,
   FollowNFT__factory,
   Helper,
   Helper__factory,
@@ -126,6 +128,7 @@ export let mockFollowModule: MockFollowModule;
 
 // Reference
 export let followerOnlyReferenceModule: FollowerOnlyReferenceModule;
+export let tokenGatedReferenceModule: TokenGatedReferenceModule;
 export let mockReferenceModule: MockReferenceModule;
 
 export function makeSuiteCleanRoom(name: string, tests: () => void) {
@@ -240,6 +243,9 @@ before(async function () {
   approvalFollowModule = await new ApprovalFollowModule__factory(deployer).deploy(lensHub.address);
   revertFollowModule = await new RevertFollowModule__factory(deployer).deploy(lensHub.address);
   followerOnlyReferenceModule = await new FollowerOnlyReferenceModule__factory(deployer).deploy(
+    lensHub.address
+  );
+  tokenGatedReferenceModule = await new TokenGatedReferenceModule__factory(deployer).deploy(
     lensHub.address
   );
 
