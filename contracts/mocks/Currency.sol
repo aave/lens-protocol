@@ -8,4 +8,8 @@ contract Currency is ERC20('Currency', 'CRNC') {
     function mint(address to, uint256 amount) external {
         _mint(to, amount);
     }
+
+    function burnFrom(address from, uint256 amount) external {
+        _burn(from, amount);
+    }
 }

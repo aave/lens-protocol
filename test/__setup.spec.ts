@@ -8,6 +8,8 @@ import { ethers } from 'hardhat';
 import {
   ApprovalFollowModule,
   ApprovalFollowModule__factory,
+  BCTRetireCollectModule,
+  BCTRetireCollectModule__factory,
   CollectNFT__factory,
   Currency,
   Currency__factory,
@@ -35,6 +37,8 @@ import {
   MockFollowModule__factory,
   MockReferenceModule,
   MockReferenceModule__factory,
+  MockKlimaRetirementAggregator,
+  MockKlimaRetirementAggregator__factory,
   ModuleGlobals,
   ModuleGlobals__factory,
   ProfileTokenURILogic__factory,
@@ -116,6 +120,7 @@ export let freeCollectModule: FreeCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
+export let bctRetireCollectModule: BCTRetireCollectModule;
 
 // Follow
 export let approvalFollowModule: ApprovalFollowModule;
@@ -127,6 +132,10 @@ export let mockFollowModule: MockFollowModule;
 // Reference
 export let followerOnlyReferenceModule: FollowerOnlyReferenceModule;
 export let mockReferenceModule: MockReferenceModule;
+
+// Helpers
+export let carbonToken: Currency;
+export let mockKlimaRetirementAggregator: MockKlimaRetirementAggregator;
 
 export function makeSuiteCleanRoom(name: string, tests: () => void) {
   describe(name, () => {
@@ -232,6 +241,16 @@ before(async function () {
     moduleGlobals.address
   );
 
+  // Carbon Offset Retirement Collect modules
+  carbonToken = await new Currency__factory(deployer).deploy();
+  mockKlimaRetirementAggregator = await new MockKlimaRetirementAggregator__factory(deployer).deploy();
+  bctRetireCollectModule = await new BCTRetireCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address,
+    carbonToken.address,
+    mockKlimaRetirementAggregator.address
+    );
+
   feeFollowModule = await new FeeFollowModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
@@ -265,6 +284,7 @@ before(async function () {
   expect(timedFeeCollectModule).to.not.be.undefined;
   expect(mockFollowModule).to.not.be.undefined;
   expect(mockReferenceModule).to.not.be.undefined;
+  expect(mockKlimaRetirementAggregator).to.not.be.undefined;
 
   // Event library deployment is only needed for testing and is not reproduced in the live environment
   eventsLib = await new Events__factory(deployer).deploy();

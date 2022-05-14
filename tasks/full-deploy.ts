@@ -15,6 +15,7 @@ import {
   InteractionLogic__factory,
   LimitedFeeCollectModule__factory,
   LimitedTimedFeeCollectModule__factory,
+  BCTRetireCollectModule__factory,
   ModuleGlobals__factory,
   PublishingLogic__factory,
   RevertCollectModule__factory,
@@ -32,6 +33,12 @@ import { deployContract, waitForTx } from './helpers/utils';
 const TREASURY_FEE_BPS = 50;
 const LENS_HUB_NFT_NAME = 'Lens Protocol Profiles';
 const LENS_HUB_NFT_SYMBOL = 'LPP';
+
+// External contract addresses
+// Hard-coded for testnet, NOT SUITABLE FOR PRODUCTION!
+// Alternative: inject values from an environment variable
+const BCT_ADDRESS = '0x14D0C4916e6Bee150632D17be42eFb972Dd96908';
+const RETIREMENT_HELPER_ADDRESS = '0x802fd78B14bF8d0cc0Ba0325351887a323432B70';
 
 task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre) => {
   // Note that the use of these signers is a placeholder and is not meant to be used in
@@ -173,6 +180,15 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
     new FreeCollectModule__factory(deployer).deploy(lensHub.address, { nonce: deployerNonce++ })
   );
 
+  console.log('\n\t-- Deploying bctRetireCollectModule --');
+  const bctRetireCollectModule = await deployContract(
+    new BCTRetireCollectModule__factory(deployer).deploy(
+      lensHub.address, moduleGlobals.address,
+      BCT_ADDRESS, RETIREMENT_HELPER_ADDRESS,
+      {nonce: deployerNonce++,}
+    )
+  );
+
   // Deploy follow modules
   console.log('\n\t-- Deploying feeFollowModule --');
   const feeFollowModule = await deployContract(
@@ -248,6 +264,9 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
   await waitForTx(
     lensHub.whitelistCollectModule(freeCollectModule.address, true, { nonce: governanceNonce++ })
   );
+  await waitForTx(
+    lensHub.whitelistCollectModule(bctRetireCollectModule.address, true, { nonce: governanceNonce++ })
+  );
 
   // Whitelist the follow modules
   console.log('\n\t-- Whitelisting Follow Modules --');
@@ -306,6 +325,7 @@ task('full-deploy', 'deploys the entire Lens Protocol').setAction(async ({}, hre
     'limited timed fee collect module': limitedTimedFeeCollectModule.address,
     'revert collect module': revertCollectModule.address,
     'free collect module': freeCollectModule.address,
+    'BCT fee collect module': bctRetireCollectModule.address,
     'fee follow module': feeFollowModule.address,
     'profile follow module': profileFollowModule.address,
     'revert follow module': revertFollowModule.address,

@@ -8,6 +8,7 @@ import {
   ApprovalFollowModule__factory,
   CollectNFT__factory,
   FreeCollectModule__factory,
+  BCTRetireCollectModule__factory,
   FeeCollectModule__factory,
   FeeFollowModule__factory,
   FollowerOnlyReferenceModule__factory,
@@ -32,6 +33,12 @@ import { deployWithVerify, waitForTx } from './helpers/utils';
 const TREASURY_FEE_BPS = 50;
 const LENS_HUB_NFT_NAME = 'Lens Protocol Profiles';
 const LENS_HUB_NFT_SYMBOL = 'LPP';
+
+// External contract addresses
+// Hard-coded for testnet, NOT SUITABLE FOR PRODUCTION!
+// Alternative: inject values from an environment variable// Hard-coded for testnet, not suitable for production
+const BCT_ADDRESS = '0x14D0C4916e6Bee150632D17be42eFb972Dd96908';
+const RETIREMENT_HELPER_ADDRESS = '0x802fd78B14bF8d0cc0Ba0325351887a323432B70';
 
 export let runtimeHRE: HardhatRuntimeEnvironment;
 
@@ -219,6 +226,20 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       'contracts/core/modules/collect/FreeCollectModule.sol:FreeCollectModule'
     );
 
+    console.log('\n\t-- Deploying bctRetireCollectModule --');
+    const bctRetireCollectModule = await deployWithVerify(
+      new BCTRetireCollectModule__factory(deployer).deploy(
+        lensHub.address, moduleGlobals.address,
+        BCT_ADDRESS, RETIREMENT_HELPER_ADDRESS,
+        {nonce: deployerNonce++,}
+      ),
+      [
+        lensHub.address, moduleGlobals.address,
+        BCT_ADDRESS, RETIREMENT_HELPER_ADDRESS,
+      ],
+      'contracts/core/modules/collect/BCTRetireCollectModule.sol:BCTRetireCollectModule'
+    );
+
     // Deploy follow modules
     console.log('\n\t-- Deploying feeFollowModule --');
     const feeFollowModule = await deployWithVerify(
@@ -312,6 +333,9 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
     await waitForTx(
       lensHub.whitelistCollectModule(freeCollectModule.address, true, { nonce: governanceNonce++ })
     );
+    await waitForTx(
+      lensHub.whitelistCollectModule(bctRetireCollectModule.address, true, { nonce: governanceNonce++ })
+    );
 
     // Whitelist the follow modules
     console.log('\n\t-- Whitelisting Follow Modules --');
@@ -364,6 +388,7 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       'limited timed fee collect module': limitedTimedFeeCollectModule.address,
       'revert collect module': revertCollectModule.address,
       'free collect module': freeCollectModule.address,
+      'BCT fee collect module': bctRetireCollectModule.address,
       'fee follow module': feeFollowModule.address,
       'profile follow module': profileFollowModule.address,
       'revert follow module': revertFollowModule.address,
