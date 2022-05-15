@@ -47,4 +47,5 @@ export const ERRORS = {
   PUBLISHING_PAUSED: 'PublishingPaused()',
   NO_REASON_ABI_DECODE:
     "Transaction reverted and Hardhat couldn't infer the reason. Please report this to help us improve Hardhat.",
+  NOT_COLLECTION_OWNER: 'NotCollectionOwner()'
 };
