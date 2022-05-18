@@ -41,6 +41,8 @@ import {
   PublishingLogic__factory,
   RevertCollectModule,
   RevertCollectModule__factory,
+  StepwiseLimitedFeeCollectModule,
+  StepwiseLimitedFeeCollectModule__factory,
   TimedFeeCollectModule,
   TimedFeeCollectModule__factory,
   TransparentUpgradeableProxy__factory,
@@ -116,6 +118,7 @@ export let freeCollectModule: FreeCollectModule;
 export let revertCollectModule: RevertCollectModule;
 export let limitedFeeCollectModule: LimitedFeeCollectModule;
 export let limitedTimedFeeCollectModule: LimitedTimedFeeCollectModule;
+export let stepwiseLimitedFeeCollectModule: StepwiseLimitedFeeCollectModule;
 
 // Follow
 export let approvalFollowModule: ApprovalFollowModule;
@@ -228,6 +231,10 @@ before(async function () {
     moduleGlobals.address
   );
   limitedTimedFeeCollectModule = await new LimitedTimedFeeCollectModule__factory(deployer).deploy(
+    lensHub.address,
+    moduleGlobals.address
+  );
+  stepwiseLimitedFeeCollectModule = await new StepwiseLimitedFeeCollectModule__factory(deployer).deploy(
     lensHub.address,
     moduleGlobals.address
   );
