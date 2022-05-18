@@ -42,4 +42,16 @@ abstract contract FollowValidationModuleBase is ModuleBase {
             revert Errors.FollowInvalid();
         }
     }
+
+    function _checkFollowValidityWithMaxID(uint256 profileId, address user, uint256 maxID, uint256 tokenID) internal view {
+        address followNFT = ILensHub(HUB).getFollowNFT(profileId);
+        if (followNFT == address(0)) revert Errors.FollowInvalid();
+        if (IERC721(followNFT).balanceOf(user) == 0) revert Errors.FollowInvalid();
+        if (
+            IERC721(followNFT).ownerOf(tokenID) != user ||
+            tokenID > maxID
+        ) {
+            revert Errors.AboveMaxID();
+        }
+    }
 }

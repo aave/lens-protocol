@@ -39,7 +39,9 @@ library Errors {
     error InitParamsInvalid();
     error CollectExpired();
     error FollowInvalid();
+    error AboveMaxID();
     error ModuleDataMismatch();
+    error NotEnoughTokens();
     error FollowNotApproved();
     error MintLimitExceeded();
     error CollectNotAllowed();
