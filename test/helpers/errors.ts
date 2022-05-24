@@ -1,5 +1,4 @@
 export const ERRORS = {
-  CANNOT_INIT_IMPL: 'CannotInitImplementation()',
   INITIALIZED: 'Initialized()',
   SIGNATURE_EXPIRED: 'SignatureExpired()',
   ZERO_SPENDER: 'ZeroSpender()',
@@ -7,7 +6,6 @@ export const ERRORS = {
   NOT_OWNER_OR_APPROVED: 'NotOwnerOrApproved()',
   NOT_HUB: 'NotHub()',
   TOKEN_DOES_NOT_EXIST: 'TokenDoesNotExist()',
-  CALLER_NOT_WHITELSITED_MODULE: 'CallerNotWhitelistedModule()',
   NOT_GOVERNANCE: 'NotGovernance()',
   NOT_GOVERNANCE_OR_EMERGENCY_ADMIN: 'NotGovernanceOrEmergencyAdmin()',
   EMERGENCY_ADMIN_CANNOT_UNPAUSE: 'EmergencyAdminCannotUnpause()',

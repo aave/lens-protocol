@@ -13,8 +13,10 @@ import { ZERO_ADDRESS } from '../helpers/constants';
 import { ERRORS } from '../helpers/errors';
 import {
   BPS_MAX,
+  collectNFTImpl,
   deployer,
   deployerAddress,
+  followNFTImpl,
   governanceAddress,
   hubLibs,
   lensHub,
@@ -54,10 +56,22 @@ makeSuiteCleanRoom('deployment validation', () => {
     );
   });
 
-  it('Deployer should not be able to initialize implementation due to address(this) check', async function () {
+  it('Deployer should not be able to initialize hub implementation due to constructor initialization', async function () {
     await expect(
       lensHubImpl.initialize(LENS_HUB_NFT_NAME, LENS_HUB_NFT_SYMBOL, governanceAddress)
-    ).to.be.revertedWith(ERRORS.CANNOT_INIT_IMPL);
+    ).to.be.revertedWith(ERRORS.INITIALIZED);
+  });
+
+  it('Deployer should not be able to initialize follow NFT implementation due to constructor initialization', async function () {
+    await expect(followNFTImpl.initialize(0)).to.be.revertedWith(
+      ERRORS.INITIALIZED
+    );
+  });
+
+  it('Deployer should not be able to initialize collect NFT implementation due to constructor initialization', async function () {
+    await expect(collectNFTImpl.initialize(0, 0, 'collectnft', 'cnft')).to.be.revertedWith(
+      ERRORS.INITIALIZED
+    );
   });
 
   it("User should fail to initialize lensHub proxy after it's already been initialized via the proxy constructor", async function () {

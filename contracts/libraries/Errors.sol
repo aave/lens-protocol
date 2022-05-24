@@ -3,7 +3,6 @@
 pragma solidity 0.8.10;
 
 library Errors {
-    error CannotInitImplementation();
     error Initialized();
     error SignatureExpired();
     error ZeroSpender();
@@ -14,7 +13,6 @@ library Errors {
     error NotGovernance();
     error NotGovernanceOrEmergencyAdmin();
     error EmergencyAdminCannotUnpause();
-    error CallerNotWhitelistedModule();
     error CollectModuleNotWhitelisted();
     error FollowModuleNotWhitelisted();
     error ReferenceModuleNotWhitelisted();

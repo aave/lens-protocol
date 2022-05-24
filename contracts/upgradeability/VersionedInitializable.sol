@@ -21,8 +21,6 @@ import {Errors} from '../libraries/Errors.sol';
  * Initializable contract
  */
 abstract contract VersionedInitializable {
-    address private immutable originalImpl;
-
     /**
      * @dev Indicates that the contract has been initialized.
      */
@@ -33,15 +31,12 @@ abstract contract VersionedInitializable {
      */
     modifier initializer() {
         uint256 revision = getRevision();
-        if (address(this) == originalImpl) revert Errors.CannotInitImplementation();
         if (revision <= lastInitializedRevision) revert Errors.Initialized();
         lastInitializedRevision = revision;
         _;
     }
 
-    constructor() {
-        originalImpl = address(this);
-    }
+    constructor() initializer {}
 
     /**
      * @dev returns the revision number of the contract
