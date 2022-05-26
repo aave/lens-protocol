@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.10;
+pragma solidity ^0.8.10;
 
 import {DataTypes} from './DataTypes.sol';
 import {Errors} from './Errors.sol';

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.10;
+pragma solidity ^0.8.10;
 
 import {FollowNFTProxy} from '../upgradeability/FollowNFTProxy.sol';
 import {Helpers} from './Helpers.sol';
