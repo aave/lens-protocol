@@ -26,3 +26,8 @@ coverage.json
 addresses.json
 
 contracts/core/modules/follow/SecretCodeFollowModule.sol
+
+#Foundry
+artifacts-foundry
+cache-foundry
+broadcast

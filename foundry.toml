@@ -1,0 +1,4 @@
+[default]
+out = 'artifacts-foundry'
+src = 'contracts'
+cache_path = 'cache-foundry'

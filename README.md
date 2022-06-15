@@ -81,6 +81,16 @@ Cleanup leftover Docker containers:
 USERID=$UID docker-compose down
 ```
 
+### Foundry Setup
+
+We also support writing tests in Solidity via [Foundry](https://github.com/foundry-rs/foundry).
+
+1. For now, this requires NPM packages to be installed locally. Therefore you must have NodeJS 16 installed and run: `npm install`.
+2. Install Foundry as per the installation instructions here: https://getfoundry.sh/
+3. You can now run tests with: `forge test`.
+
+**Local deployment steps are a work-in-progress with Foundry.**
+
 ## Protocol Overview
 
 The Lens Protocol transfers ownership of social graphs to the participants of that graph themselves. This is achieved by creating direct links between `profiles` and their `followers`, while allowing fine-grained control of additional logic, including monetization, to be executed during those interactions on a profile-by-profile basis.
