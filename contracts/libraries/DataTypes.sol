@@ -77,7 +77,7 @@ library DataTypes {
      * @param profileIdPointed The profile token ID this publication points to, for mirrors and comments.
      * @param pubIdPointed The publication ID this publication points to, for mirrors and comments.
      * @param contentURI The URI associated with this publication.
-     * @param referenceModule The address of the current reference module in use by this profile, can be empty.
+     * @param referenceModule The address of the current reference module in use by this publication, can be empty.
      * @param collectModule The address of the collect module associated with this publication, this exists for all publication.
      * @param collectNFT The address of the collectNFT associated with this publication, if any.
      */
