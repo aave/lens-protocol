@@ -1,6 +1,5 @@
 import '@nomiclabs/hardhat-ethers';
 import { expect } from 'chai';
-import { BigNumber } from 'ethers';
 import { FollowNFT__factory } from '../../../typechain-types';
 import { MAX_UINT256, ZERO_ADDRESS } from '../../helpers/constants';
 import { ERRORS } from '../../helpers/errors';
@@ -56,6 +55,12 @@ makeSuiteCleanRoom('Following', function () {
       it('UserTwo should fail to follow a profile that has been burned', async function () {
         await expect(lensHub.burn(FIRST_PROFILE_ID)).to.not.be.reverted;
         await expect(lensHub.connect(userTwo).follow([FIRST_PROFILE_ID], [[]])).to.be.revertedWith(
+          ERRORS.TOKEN_DOES_NOT_EXIST
+        );
+      });
+
+      it('UserTwo should fail to follow profile with id 0', async function () {
+        await expect(lensHub.connect(userTwo).follow([0], [[]])).to.be.revertedWith(
           ERRORS.TOKEN_DOES_NOT_EXIST
         );
       });

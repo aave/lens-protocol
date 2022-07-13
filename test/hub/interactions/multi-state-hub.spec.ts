@@ -54,7 +54,7 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
       it('Governance should set user as emergency admin, user should fail to set protocol state to Unpaused', async function () {
         await expect(lensHub.connect(governance).setEmergencyAdmin(userAddress)).to.not.be.reverted;
         await expect(lensHub.setState(ProtocolState.Unpaused)).to.be.revertedWith(
-          ERRORS.EMERGENCY_ADMIN_CANNOT_UNPAUSE
+          ERRORS.EMERGENCY_ADMIN_CAN_ONLY_PAUSE_FURTHER
         );
       });
 
@@ -62,9 +62,11 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         await expect(lensHub.connect(governance).setEmergencyAdmin(userAddress)).to.not.be.reverted;
         await expect(lensHub.connect(governance).setState(ProtocolState.Paused)).to.not.be.reverted;
         await expect(lensHub.setState(ProtocolState.PublishingPaused)).to.be.revertedWith(
-          ERRORS.PAUSED
+          ERRORS.EMERGENCY_ADMIN_CAN_ONLY_PAUSE_FURTHER
         );
-        await expect(lensHub.setState(ProtocolState.Paused)).to.be.revertedWith(ERRORS.PAUSED);
+        await expect(lensHub.setState(ProtocolState.Paused)).to.be.revertedWith(
+          ERRORS.EMERGENCY_ADMIN_CAN_ONLY_PAUSE_FURTHER
+        );
       });
     });
 
@@ -114,15 +116,8 @@ makeSuiteCleanRoom('Multi-State Hub', function () {
         await expect(lensHub.setState(ProtocolState.PublishingPaused)).to.not.be.reverted;
         await expect(lensHub.setState(ProtocolState.Paused)).to.not.be.reverted;
         await expect(lensHub.setState(ProtocolState.PublishingPaused)).to.be.revertedWith(
-          ERRORS.PAUSED
+          ERRORS.EMERGENCY_ADMIN_CAN_ONLY_PAUSE_FURTHER
         );
-      });
-
-      it('Governance should set user as emergency admin, user should set protocol state to PublishingPaused, then set it to PublishingPaused again without reverting', async function () {
-        await expect(lensHub.connect(governance).setEmergencyAdmin(userAddress)).to.not.be.reverted;
-
-        await expect(lensHub.setState(ProtocolState.PublishingPaused)).to.not.be.reverted;
-        await expect(lensHub.setState(ProtocolState.PublishingPaused)).to.not.be.reverted;
       });
     });
   });

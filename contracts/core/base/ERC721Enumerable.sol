@@ -2,8 +2,10 @@
 
 pragma solidity ^0.8.0;
 
-import './ERC721Time.sol';
-import '@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol';
+import {Errors} from '../../libraries/Errors.sol';
+import {ERC721Time} from './ERC721Time.sol';
+import {IERC721Enumerable} from '@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol';
+import {IERC165} from '@openzeppelin/contracts/interfaces/IERC165.sol';
 
 /**
  * @dev This implements an optional extension of {ERC721} defined in the EIP that adds
@@ -50,7 +52,8 @@ abstract contract ERC721Enumerable is ERC721Time, IERC721Enumerable {
         override
         returns (uint256)
     {
-        require(index < ERC721Time.balanceOf(owner), 'ERC721Enumerable: owner index out of bounds');
+        if (index >= ERC721Time.balanceOf(owner))
+            revert Errors.ERC721Enumerable_OwnerIndexOutOfBounds();
         return _ownedTokens[owner][index];
     }
 
@@ -65,10 +68,8 @@ abstract contract ERC721Enumerable is ERC721Time, IERC721Enumerable {
      * @dev See {IERC721Enumerable-tokenByIndex}.
      */
     function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
-        require(
-            index < ERC721Enumerable.totalSupply(),
-            'ERC721Enumerable: global index out of bounds'
-        );
+        if (index >= ERC721Enumerable.totalSupply())
+            revert Errors.ERC721Enumerable_GlobalIndexOutOfBounds();
         return _allTokens[index];
     }
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.10;
+pragma solidity 0.8.15;
 
 /**
  * @title DataTypes
@@ -63,12 +63,12 @@ library DataTypes {
      * @param followNFTURI The URI to be used for the follow NFT.
      */
     struct ProfileStruct {
-        uint256 pubCount;
-        address followModule;
-        address followNFT;
-        string handle;
-        string imageURI;
-        string followNFTURI;
+        uint256 pubCount;       // offset 0
+        address followModule;   // offset 1
+        address followNFT;      // offset 2
+        string handle;          // offset 3
+        string imageURI;        // offset 4
+        string followNFTURI;    // offset 5
     }
 
     /**

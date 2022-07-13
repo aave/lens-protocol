@@ -1,4 +1,5 @@
 import '@nomiclabs/hardhat-ethers';
+import hre from 'hardhat';
 import { expect } from 'chai';
 import { MAX_UINT256, ZERO_ADDRESS } from '../../helpers/constants';
 import { ERRORS } from '../../helpers/errors';
@@ -699,6 +700,9 @@ makeSuiteCleanRoom('Publishing Comments', function () {
           MAX_UINT256
         );
 
+        // hre.tracer.enabled = true;
+        // hre.tracer.sloads = true;
+        // hre.tracer.sstores = true;
         await cancelWithPermitForAll();
 
         await expect(

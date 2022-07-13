@@ -599,7 +599,7 @@ makeSuiteCleanRoom('Misc', function () {
 
       await expect(
         approvalFollowModule.isFollowing(FIRST_PROFILE_ID, userAddress, 2)
-      ).to.be.revertedWith(ERRORS.ERC721_QUERY_FOR_NONEXISTENT_TOKEN);
+      ).to.be.revertedWith(ERRORS.ERC721_OWNER_QUERY_FOR_NONEXISTENT_TOKEN);
     });
 
     it('Follow module following check with specific ID input should return false if another address owns the specified follow NFT', async function () {

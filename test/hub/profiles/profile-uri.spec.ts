@@ -67,7 +67,7 @@ makeSuiteCleanRoom('Profile URI Functionality', function () {
     });
 
     context('Scenarios', function () {
-      it('User should have a custom picture tokenURI after setting the profile imageURI', async function () {
+      it('User should have a custom image tokenURI after setting the profile imageURI', async function () {
         await expect(lensHub.setProfileImageURI(FIRST_PROFILE_ID, MOCK_URI)).to.not.be.reverted;
         const tokenUri = await lensHub.tokenURI(FIRST_PROFILE_ID);
         const metadata = await getMetadataFromBase64TokenUri(tokenUri);
@@ -83,6 +83,13 @@ makeSuiteCleanRoom('Profile URI Functionality', function () {
         const actualSvg = await getDecodedSvgImage(metadata);
         const expectedSvg = loadTestResourceAsUtf8String('profile-token-uri-images/mock.svg');
         expect(actualSvg).to.eq(expectedSvg);
+      });
+
+      it('User should set a custom image URI under 32 bytes of length, profile image URI should be accurate', async function () {
+        const testURI = 'mockuri';
+        await expect(lensHub.setProfileImageURI(FIRST_PROFILE_ID, testURI)).to.not.be.reverted;
+        const profileImageURI = (await lensHub.getProfile(FIRST_PROFILE_ID)).imageURI;
+        expect(profileImageURI).to.eq(testURI);
       });
 
       it('Default image should be used when no imageURI set', async function () {

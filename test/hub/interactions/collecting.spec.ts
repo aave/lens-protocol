@@ -57,13 +57,13 @@ makeSuiteCleanRoom('Collecting', function () {
 
   context('Generic', function () {
     context('Negatives', function () {
-      it('UserTwo should fail to collect without being a follower', async function () {
+      it('User two should fail to collect without being a follower', async function () {
         await expect(lensHub.connect(userTwo).collect(FIRST_PROFILE_ID, 1, [])).to.be.revertedWith(
           ERRORS.FOLLOW_INVALID
         );
       });
 
-      it('user two should follow, then transfer the followNFT and fail to collect', async function () {
+      it('User two should follow, then transfer the followNFT and fail to collect', async function () {
         await expect(lensHub.connect(userTwo).follow([FIRST_PROFILE_ID], [[]])).to.not.be.reverted;
         const followNftAddr = await lensHub.getFollowNFT(FIRST_PROFILE_ID);
         await expect(
@@ -76,6 +76,13 @@ makeSuiteCleanRoom('Collecting', function () {
         await expect(lensHub.connect(userTwo).collect(FIRST_PROFILE_ID, 1, [])).to.be.revertedWith(
           ERRORS.FOLLOW_INVALID
         );
+      });
+
+      it('User two should fail to collect a nonexistent publication', async function () {
+        await expect(lensHub.connect(userTwo).collect(0, 0, [])).to.be.revertedWith(
+          ERRORS.PUBLICATION_DOES_NOT_EXIST
+        );
+
       });
     });
 

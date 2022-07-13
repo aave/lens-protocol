@@ -1,4 +1,5 @@
 import '@nomiclabs/hardhat-ethers';
+import hre from 'hardhat';
 import { expect } from 'chai';
 import { keccak256, toUtf8Bytes } from 'ethers/lib/utils';
 import { MAX_UINT256, ZERO_ADDRESS } from '../helpers/constants';
@@ -23,6 +24,7 @@ import {
   user,
   userAddress,
 } from '../__setup.spec';
+import { hardhatArguments } from 'hardhat';
 
 makeSuiteCleanRoom('Lens NFT Base Functionality', function () {
   context('generic', function () {
@@ -104,7 +106,7 @@ makeSuiteCleanRoom('Lens NFT Base Functionality', function () {
             s,
             deadline: MAX_UINT256,
           })
-        ).to.be.revertedWith(ERRORS.ERC721_QUERY_FOR_NONEXISTENT_TOKEN);
+        ).to.be.revertedWith(ERRORS.SIGNATURE_INVALID);
       });
 
       it('TestWallet should fail to permit with signature deadline mismatch', async function () {
@@ -326,7 +328,7 @@ makeSuiteCleanRoom('Lens NFT Base Functionality', function () {
         );
 
         await expect(lensHub.burnWithSig(0, { v, r, s, deadline: MAX_UINT256 })).to.be.revertedWith(
-          ERRORS.ERC721_QUERY_FOR_NONEXISTENT_TOKEN
+          ERRORS.SIGNATURE_INVALID
         );
       });
 
@@ -409,14 +411,18 @@ makeSuiteCleanRoom('Lens NFT Base Functionality', function () {
           nonce,
           MAX_UINT256
         );
-
         await expect(
-          lensHub.permit(userAddress, FIRST_PROFILE_ID, {
-            v,
-            r,
-            s,
-            deadline: MAX_UINT256,
-          })
+          lensHub.permit(
+            userAddress,
+            FIRST_PROFILE_ID,
+            {
+              v,
+              r,
+              s,
+              deadline: MAX_UINT256,
+            },
+            { gasLimit: 12450000 }
+          )
         ).to.not.be.reverted;
 
         await expect(

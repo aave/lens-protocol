@@ -72,7 +72,7 @@ makeSuiteCleanRoom('Profile Follow Module', function () {
         const data = abiCoder.encode(['uint256'], [FIRST_PROFILE_ID + 1]);
         await expect(
           lensHub.connect(userTwo).follow([FIRST_PROFILE_ID], [data])
-        ).to.be.revertedWith(ERRORS.ERC721_QUERY_FOR_NONEXISTENT_TOKEN);
+        ).to.be.revertedWith(ERRORS.ERC721_OWNER_QUERY_FOR_NONEXISTENT_TOKEN);
       });
 
       it('Follow should fail when the passed follower profile does not exist because has been burned', async function () {
@@ -92,7 +92,7 @@ makeSuiteCleanRoom('Profile Follow Module', function () {
         const data = abiCoder.encode(['uint256'], [secondProfileId]);
         await expect(
           lensHub.connect(userTwo).follow([FIRST_PROFILE_ID], [data])
-        ).to.be.revertedWith(ERRORS.ERC721_QUERY_FOR_NONEXISTENT_TOKEN);
+        ).to.be.revertedWith(ERRORS.ERC721_OWNER_QUERY_FOR_NONEXISTENT_TOKEN);
       });
 
       it('Follow should fail when follower address is not the owner of the passed follower profile', async function () {

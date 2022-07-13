@@ -16,6 +16,7 @@ import 'hardhat-gas-reporter';
 import 'hardhat-contract-sizer';
 import 'hardhat-log-remover';
 import 'hardhat-spdx-license-identifier';
+import 'hardhat-tracer';
 
 if (!process.env.SKIP_LOAD) {
   glob.sync('./tasks/**/*.ts').forEach(function (file) {
@@ -23,7 +24,6 @@ if (!process.env.SKIP_LOAD) {
   });
 }
 
-const DEFAULT_BLOCK_GAS_LIMIT = 12450000;
 const MNEMONIC_PATH = "m/44'/60'/0'/0";
 const MNEMONIC = process.env.MNEMONIC || '';
 const MAINNET_FORK = process.env.MAINNET_FORK === 'true';
@@ -51,7 +51,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: '0.8.10',
+        version: '0.8.15',
         settings: {
           optimizer: {
             enabled: true,
@@ -73,11 +73,6 @@ const config: HardhatUserConfig = {
     mumbai: getCommonNetworkConfig(ePolygonNetwork.mumbai, 80001),
     xdai: getCommonNetworkConfig(eXDaiNetwork.xdai, 100),
     hardhat: {
-      hardfork: 'london',
-      blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
-      gas: DEFAULT_BLOCK_GAS_LIMIT,
-      gasPrice: 8000000000,
-      chainId: HARDHATEVM_CHAINID,
       throwOnTransactionFailures: true,
       throwOnCallFailures: true,
       accounts: accounts.map(({ secretKey, balance }: { secretKey: string; balance: string }) => ({
@@ -85,6 +80,7 @@ const config: HardhatUserConfig = {
         balance,
       })),
       forking: mainnetFork,
+      allowUnlimitedContractSize: true,
     },
   },
   gasReporter: {

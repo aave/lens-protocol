@@ -1,14 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.10;
+pragma solidity 0.8.15;
 
-import {ILensHub} from '../interfaces/ILensHub.sol';
-import {Events} from '../libraries/Events.sol';
-import {Helpers} from '../libraries/Helpers.sol';
-import {DataTypes} from '../libraries/DataTypes.sol';
-import {Errors} from '../libraries/Errors.sol';
-import {PublishingLogic} from '../libraries/PublishingLogic.sol';
-import {InteractionLogic} from '../libraries/InteractionLogic.sol';
 import {LensNFTBase} from '../core/base/LensNFTBase.sol';
 import {LensMultiState} from '../core/base/LensMultiState.sol';
 import {VersionedInitializable} from '../upgradeability/VersionedInitializable.sol';

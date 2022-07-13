@@ -12,11 +12,10 @@ import {
   FeeFollowModule__factory,
   FollowerOnlyReferenceModule__factory,
   FollowNFT__factory,
-  InteractionLogic__factory,
   LimitedFeeCollectModule__factory,
   LimitedTimedFeeCollectModule__factory,
   ModuleGlobals__factory,
-  PublishingLogic__factory,
+  GeneralLib__factory,
   RevertCollectModule__factory,
   TimedFeeCollectModule__factory,
   TransparentUpgradeableProxy__factory,
@@ -77,15 +76,10 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
 
     console.log('\n\t-- Deploying Logic Libs --');
 
-    const publishingLogic = await deployWithVerify(
-      new PublishingLogic__factory(deployer).deploy({ nonce: deployerNonce++ }),
+    const generalLib = await deployWithVerify(
+      new GeneralLib__factory(deployer).deploy({ nonce: deployerNonce++ }),
       [],
-      'contracts/libraries/PublishingLogic.sol:PublishingLogic'
-    );
-    const interactionLogic = await deployWithVerify(
-      new InteractionLogic__factory(deployer).deploy({ nonce: deployerNonce++ }),
-      [],
-      'contracts/libraries/InteractionLogic.sol:InteractionLogic'
+      'contracts/libraries/GeneralLib.sol:GeneralLib'
     );
     const profileTokenURILogic = await deployWithVerify(
       new ProfileTokenURILogic__factory(deployer).deploy({ nonce: deployerNonce++ }),
@@ -93,8 +87,7 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
       'contracts/libraries/ProfileTokenURILogic.sol:ProfileTokenURILogic'
     );
     const hubLibs = {
-      'contracts/libraries/PublishingLogic.sol:PublishingLogic': publishingLogic.address,
-      'contracts/libraries/InteractionLogic.sol:InteractionLogic': interactionLogic.address,
+      'contracts/libraries/GeneralLib.sol:GeneralLib': generalLib.address,
       'contracts/libraries/ProfileTokenURILogic.sol:ProfileTokenURILogic':
         profileTokenURILogic.address,
     };
@@ -351,8 +344,7 @@ task('full-deploy-verify', 'deploys the entire Lens Protocol with explorer verif
     const addrs = {
       'lensHub proxy': lensHub.address,
       'lensHub impl:': lensHubImpl.address,
-      'publishing logic lib': publishingLogic.address,
-      'interaction logic lib': interactionLogic.address,
+      'publishing logic lib': generalLib.address,
       'profile token URI logic lib': profileTokenURILogic.address,
       'follow NFT impl': followNFTImplAddress,
       'collect NFT impl': collectNFTImplAddress,

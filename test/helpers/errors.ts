@@ -10,7 +10,7 @@ export const ERRORS = {
   CALLER_NOT_WHITELSITED_MODULE: 'CallerNotWhitelistedModule()',
   NOT_GOVERNANCE: 'NotGovernance()',
   NOT_GOVERNANCE_OR_EMERGENCY_ADMIN: 'NotGovernanceOrEmergencyAdmin()',
-  EMERGENCY_ADMIN_CANNOT_UNPAUSE: 'EmergencyAdminCannotUnpause()',
+  EMERGENCY_ADMIN_CAN_ONLY_PAUSE_FURTHER: 'EmergencyAdminCanOnlyPauseFurther()',
   COLLECT_MODULE_NOT_WHITELISTED: 'CollectModuleNotWhitelisted()',
   FOLLOW_MODULE_NOT_WHITELISTED: 'FollowModuleNotWhitelisted()',
   REFERENCE_MODULE_NOT_WHITELISTED: 'ReferenceModuleNotWhitelisted()',
@@ -36,9 +36,11 @@ export const ERRORS = {
   ARRAY_MISMATCH: 'ArrayMismatch()',
   CANNOT_COMMENT_ON_SELF: 'CannotCommentOnSelf',
   NOT_DISPATCHER: 'NotDispatcher()',
-  ERC721_NOT_OWN: 'ERC721: transfer of token that is not own',
-  ERC721_TRANSFER_NOT_OWNER_OR_APPROVED: 'ERC721: transfer caller is not owner nor approved',
-  ERC721_QUERY_FOR_NONEXISTENT_TOKEN: 'ERC721: owner query for nonexistent token',
+
+  // ERC721Time + ERC721Enumerable errors
+  ERC721_NOT_OWN: 'ERC721Time_TransferOfTokenThatIsNotOwn()',
+  ERC721_TRANSFER_NOT_OWNER_OR_APPROVED: 'ERC721Time_TransferCallerNotOwnerOrApproved()',
+  ERC721_OWNER_QUERY_FOR_NONEXISTENT_TOKEN: 'ERC721Time_OwnerQueryForNonexistantToken()',
   ERC20_TRANSFER_EXCEEDS_ALLOWANCE: 'ERC20: transfer amount exceeds allowance',
   ERC20_INSUFFICIENT_ALLOWANCE: 'ERC20: insufficient allowance',
   NO_SELECTOR:

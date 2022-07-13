@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.10;
+pragma solidity 0.8.15;
 
 import {ILensNFTBase} from '../../interfaces/ILensNFTBase.sol';
 import {Errors} from '../../libraries/Errors.sol';
@@ -55,7 +55,7 @@ abstract contract LensNFTBase is ERC721Enumerable, ILensNFTBase {
         address spender,
         uint256 tokenId,
         DataTypes.EIP712Signature calldata sig
-    ) external override {
+    ) external virtual override {
         if (spender == address(0)) revert Errors.ZeroSpender();
         address owner = ownerOf(tokenId);
         unchecked {
@@ -84,7 +84,7 @@ abstract contract LensNFTBase is ERC721Enumerable, ILensNFTBase {
         address operator,
         bool approved,
         DataTypes.EIP712Signature calldata sig
-    ) external override {
+    ) external virtual override {
         if (operator == address(0)) revert Errors.ZeroSpender();
         unchecked {
             _validateRecoveredAddress(
@@ -108,7 +108,7 @@ abstract contract LensNFTBase is ERC721Enumerable, ILensNFTBase {
     }
 
     /// @inheritdoc ILensNFTBase
-    function getDomainSeparator() external view override returns (bytes32) {
+    function getDomainSeparator() external view virtual override returns (bytes32) {
         return _calculateDomainSeparator();
     }
 
